@@ -148,6 +148,244 @@
             50% { transform: translateY(-20px) rotate(5deg); }
         }
 
+        /* ============================================
+           ROULETTE SECTION STYLES
+           ============================================ */
+        .roulette-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, var(--charcoal) 0%, #2a2a2a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roulette-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(232,74,39,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .roulette-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .roulette-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--golden);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .roulette-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: white;
+            font-weight: 600;
+        }
+
+        .roulette-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .wheel-wrapper {
+            position: relative;
+            width: min(500px, 90vw);
+            height: min(500px, 90vw);
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        .wheel-pointer svg {
+            width: 50px;
+            height: 60px;
+        }
+
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--golden) 0%, var(--vermillion) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 2px 10px rgba(255,255,255,0.3);
+            z-index: 5;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .wheel-center:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .wheel-center:active {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        #wheel-canvas {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+        }
+
+        #wheel-canvas:hover {
+            filter: brightness(1.05);
+        }
+
+        .spin-button {
+            background: linear-gradient(135deg, var(--vermillion) 0%, var(--golden) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(232,74,39,0.4);
+            font-family: 'Be Vietnam Pro', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .spin-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(232,74,39,0.5);
+        }
+
+        .spin-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .spin-button.spinning {
+            -webkit-animation: buttonPulse 0.5s ease infinite;
+            animation: buttonPulse 0.5s ease infinite;
+        }
+
+        @-webkit-keyframes buttonPulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(232,74,39,0.4); }
+            50% { box-shadow: 0 4px 40px rgba(232,74,39,0.8); }
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(232,74,39,0.4); }
+            50% { box-shadow: 0 4px 40px rgba(232,74,39,0.8); }
+        }
+
+        /* Result Display */
+        .result-display {
+            margin-top: 2rem;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-card {
+            background: rgba(255,255,255,0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem 3rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            -webkit-transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .result-card.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .result-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            -webkit-animation: resultBounce 0.6s ease;
+            animation: resultBounce 0.6s ease;
+        }
+
+        @-webkit-keyframes resultBounce {
+            0% { -webkit-transform: scale(0); transform: scale(0); }
+            50% { -webkit-transform: scale(1.3); transform: scale(1.3); }
+            100% { -webkit-transform: scale(1); transform: scale(1); }
+        }
+
+        @keyframes resultBounce {
+            0% { -webkit-transform: scale(0); transform: scale(0); }
+            50% { -webkit-transform: scale(1.3); transform: scale(1.3); }
+            100% { -webkit-transform: scale(1); transform: scale(1); }
+        }
+
+        .result-text {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--vermillion);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .result-link:hover {
+            background: var(--golden);
+            transform: translateY(-2px);
+        }
+
+        .result-link svg {
+            width: 18px;
+            height: 18px;
+        }
+
         /* Category Section */
         .categories {
             padding: 6rem 2rem;
@@ -434,6 +672,25 @@
             .categories {
                 padding: 4rem 1.5rem;
             }
+
+            .wheel-wrapper {
+                width: 320px;
+                height: 320px;
+            }
+
+            .wheel-center {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .result-card {
+                padding: 1.5rem 2rem;
+            }
+
+            .result-name {
+                font-size: 1.5rem;
+            }
         }
 
         /* Stagger animations */
@@ -482,6 +739,7 @@
 
         .highlight-section .food-card {
             background: rgba(255,255,255,0.1);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
         }
@@ -506,6 +764,43 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.3);
             background: rgba(255,255,255,0.15);
         }
+
+        /* Confetti animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 1000;
+            -webkit-animation: confettiFall 3s ease-out forwards;
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        @-webkit-keyframes confettiFall {
+            0% {
+                -webkit-transform: translateY(0) rotate(0deg);
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translateY(100vh) rotate(720deg);
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes confettiFall {
+            0% {
+                -webkit-transform: translateY(0) rotate(0deg);
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translateY(100vh) rotate(720deg);
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -520,13 +815,61 @@
         <div class="hero-content">
             <p class="hero-subtitle">Discover Authentic Vietnamese Cuisine</p>
             <h1 class="hero-title">Đà Nẵng<span>Food Guide</span></h1>
-            <p class="hero-tagline">30+ curated dishes • Local favorites • Google Maps linked</p>
+            <p class="hero-tagline">33 curated dishes • Local favorites • Google Maps linked</p>
         </div>
         
         <div class="scroll-indicator">
             <svg viewBox="0 0 24 24">
                 <path d="M12 5v14M5 12l7 7 7-7"/>
             </svg>
+        </div>
+    </section>
+
+    <!-- Roulette Section -->
+    <section class="roulette-section">
+        <div class="roulette-header">
+            <p class="roulette-label">Can't Decide?</p>
+            <h2 class="roulette-title">🎰 Spin the Food Wheel!</h2>
+        </div>
+
+        <div class="roulette-container">
+            <div class="wheel-wrapper">
+                <div class="wheel-pointer">
+                    <svg viewBox="0 0 50 60">
+                        <defs>
+                            <linearGradient id="pointerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#F5A623"/>
+                                <stop offset="100%" style="stop-color:#E84A27"/>
+                            </linearGradient>
+                            <filter id="pointerShadow">
+                                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+                            </filter>
+                        </defs>
+                        <polygon points="25,55 10,10 40,10" fill="url(#pointerGrad)" filter="url(#pointerShadow)"/>
+                        <polygon points="25,45 15,15 35,15" fill="white" opacity="0.3"/>
+                    </svg>
+                </div>
+                <canvas id="wheel-canvas"></canvas>
+                <div class="wheel-center" id="wheel-center" title="Click to spin!">🍜</div>
+            </div>
+
+            <button class="spin-button" id="spin-btn">🎲 Spin the Wheel!</button>
+
+            <div class="result-display">
+                <div class="result-card" id="result-card">
+                    <div class="result-emoji" id="result-emoji">🍜</div>
+                    <p class="result-text">Tomorrow you should eat...</p>
+                    <h3 class="result-name" id="result-name">Phở</h3>
+                    <p class="result-desc" id="result-desc">Iconic rice noodle soup with meats</p>
+                    <a href="#" class="result-link" id="result-link" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Open in Google Maps
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -831,40 +1174,380 @@
     </footer>
 
     <script>
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // ============================================
+        // FOOD DATA - All 34 items from the website
+        // ============================================
+        const foodItems = [
+            { name: "Michelin Selected", desc: "Award-winning restaurants recognized for quality", emoji: "🏆", link: "https://www.google.com/maps/@16.0684491,108.2159333,14z/data=!3m1!4b1!4m2!6m1!1s1I8Yp71z3E0weyU8Nf5aDqJDFbN9LgVo?entry=ttu" },
+            { name: "Bánh Mì Heo Quay", desc: "Crispy roast pork sandwich", emoji: "🥖", link: "https://www.google.com/maps/@16.0710133,108.2227656,14z/data=!3m1!4b1!4m2!6m1!1s1JwuqpoeJTRP8pCBBhY7EBDrD1YQdZSg?entry=ttu" },
+            { name: "Bánh Xèo", desc: "Crispy rice pancakes with shrimp & sauce", emoji: "🥞", link: "http://google.com/maps/@16.0658391,108.2060706,14.25z/data=!4m2!6m1!1s1wsNrzPwwHL9Ys8L4mqjsIeICzI1i-Os?entry=ttu" },
+            { name: "Bánh Tráng Kẹp", desc: "Grilled pressed rice paper with egg", emoji: "🫓", link: "https://www.google.com/maps/@16.0625176,108.2149129,14z/data=!3m1!4b1!4m2!6m1!1s1rqokxHRw5IKA_6merhsQXsoS6oOo45o?entry=ttu" },
+            { name: "Bánh Căn", desc: "Mini rice pancakes with egg or seafood", emoji: "🥮", link: "http://google.com/maps/@16.0543551,108.2137051,15z/data=!4m2!6m1!1s1ygYpPUW8zoWUilGTntqpLO_bKfSEpH0?entry=ttu" },
+            { name: "Bánh Bèo", desc: "Various Huế-style rice cakes", emoji: "🍥", link: "http://google.com/maps/@16.066049,108.2107415,16z/data=!4m2!6m1!1s1WwDVnXLoWlPcXeXj_afyuwuUtSIMpfs?entry=ttu" },
+            { name: "Phở", desc: "Iconic rice noodle soup with meats", emoji: "🍲", link: "https://www.google.com/maps/@16.0739656,108.2178258,14z/data=!3m1!4b1!4m2!6m1!1s1YI43VaOymnAdgTUXzeFY_XmBUd2Xkm0?entry=ttu" },
+            { name: "Mì Quảng", desc: "Turmeric noodles with sauce & meats", emoji: "🍝", link: "https://www.google.com/maps/@16.0595895,108.2226864,15z/data=!3m1!4b1!4m2!6m1!1s1dRkfvzw4hhmCpN7jLEKhiVpTKZNL1uE?entry=ttu" },
+            { name: "Cao Lầu", desc: "Hội An noodles with BBQ pork", emoji: "🥡", link: "http://google.com/maps/@16.0651506,108.213008,14z/data=!4m2!6m1!1s1LMVtLaL1T8ILltNpyqWmvRqAflrRrIA?entry=ttu" },
+            { name: "Bún Bò Huế", desc: "Hearty spicy beef noodle soup", emoji: "🥩", link: "https://www.google.com/maps/@16.0603568,108.2105368,15z/data=!3m1!4b1!4m2!6m1!1s1gjWSvjZybkooIVLtBBqO1UriUUhvl-Y?entry=ttu" },
+            { name: "Bún Chả Cá", desc: "Noodle soup with fish cakes", emoji: "🐟", link: "https://www.google.com/maps/@16.0694231,108.2155482,14z/data=!3m1!4b1!4m2!6m1!1s1culJftF9Dnpo6fKvZGktvI8NWtamA1A?entry=ttu" },
+            { name: "Bún Chả", desc: "Grilled pork with rice noodles", emoji: "🥓", link: "https://www.google.com/maps/@16.0694231,108.2155482,14z/data=!4m2!6m1!1s1ikIDjqx6-jCYZAG0Hfd6sAp_p4zYAws?entry=ttu" },
+            { name: "Hủ Tiếu Nam Vang", desc: "Cambodian Phnom Penh noodle soup", emoji: "🇰🇭", link: "http://google.com/maps/@16.0605269,108.2168778,14z/data=!4m2!6m1!1s1nSx8juGktIZ5cc0W8LFZ0oxcCbGW3CU?entry=ttu" },
+            { name: "Bún Mắm", desc: "Noodle soup with fermented fish broth", emoji: "🦐", link: "https://www.google.com/maps/@16.0662206,108.2205464,15z/data=!3m1!4b1!4m2!6m1!1s1EqzK8tLk9bIKuPKi26x-7kTHV3pEn3I?entry=ttu" },
+            { name: "Bún Thịt Nướng", desc: "Vermicelli rice with grilled pork", emoji: "🔥", link: "https://www.google.com/maps/@16.0582351,108.2160697,15z/data=!3m1!4b1!4m2!6m1!1s1TIJfqwbcskv4ZwLyPAqae67F7QNkVd4?entry=ttu" },
+            { name: "Bún Riêu", desc: "Rice vermicelli soup with crab paste", emoji: "🦀", link: "https://www.google.com/maps/@16.0692544,108.2109855,15z/data=!3m1!4b1!4m2!6m1!1s1ds2ITia6B7eYb574CTma21dM_VDO-WY?entry=ttu" },
+            { name: "Bánh Canh Cá Lóc", desc: "Thick noodle soup with snakehead fish", emoji: "🐍", link: "https://www.google.com/maps/@16.0692544,108.2109855,15z/data=!4m2!6m1!1s1_8duQllrBX6NlDpc-ESrEiWGSqKhEmw?entry=ttu" },
+            { name: "Cơm Gà Tam Kỳ", desc: "Turmeric rice with shredded chicken", emoji: "🐔", link: "https://www.google.com/maps/@16.0674243,108.2197983,14z/data=!3m1!4b1!4m2!6m1!1s1C9Hy61pCtq4rhNS7l91tVmpL1gPhC-A?entry=ttu" },
+            { name: "Cơm Gà", desc: "Classic chicken rice with chili-garlic", emoji: "🍗", link: "https://www.google.com/maps/@16.0696813,108.2152217,14z/data=!3m1!4b1!4m2!6m1!1s1HLTq4OEjcEgaOrMYU8Ll7honO4CtVvM?entry=ttu" },
+            { name: "Cơm Tấm", desc: "Broken rice with grilled pork chops", emoji: "🥩", link: "https://www.google.com/maps/@16.0678806,108.2100882,14z/data=!3m1!4b1!4m2!6m1!1s1LlkmqqY8hFOp_uSEwoExUjZWr1QQmRI?entry=ttu" },
+            { name: "Xôi Mặn / Ngọt", desc: "Savory/sweet sticky rice", emoji: "🍙", link: "https://www.google.com/maps/@16.066049,108.2107415,16z/data=!3m1!4b1!4m2!6m1!1s1329qokEsL99TdxLxfmuxAzR8_U-inKI?entry=ttu" },
+            { name: "Xôi Gà Xé", desc: "Sticky rice with shredded chicken", emoji: "🧅", link: "https://www.google.com/maps/@16.0656948,108.1946507,14z/data=!3m1!4b1!4m2!6m1!1s1s9VvdmUhBT3p-glUys86mgFZSdxC0Cs?entry=ttu" },
+            { name: "Cơm Niêu", desc: "Clay pot rice with braised fish/pork", emoji: "🥘", link: "https://www.google.com/maps/@8.847219,117.9119713,3z/data=!3m1!4b1!4m2!6m1!1s1vFW0oamLH92lWGRyTvreIl6-9Ne1DmA?entry=ttu" },
+            { name: "Cháo", desc: "Congee rice porridge with meat", emoji: "🥣", link: "https://www.google.com/maps/@16.0700831,108.2142427,16z/data=!3m1!4b1!4m2!6m1!1s1PBQnkyw6-_PBMs1KMvwLxalH14JFdZE?entry=ttu" },
+            { name: "Cháo Vịt", desc: "Duck rice porridge", emoji: "🦆", link: "https://www.google.com/maps/@16.0617971,108.216817,14z/data=!3m1!4b1!4m2!6m1!1s1ztiKO38LP4tVnGVefAqSde-V8xKPA_s?entry=ttu" },
+            { name: "Bò Né", desc: "Sizzling beef on hot cast iron plate", emoji: "🍳", link: "https://www.google.com/maps/@16.0691313,108.2150571,14z/data=!3m1!4b1!4m2!6m1!1s1Ky_pL4rVk4u_3sKNieX_qhgRzgQpuYA?entry=ttu" },
+            { name: "Nem Lụi", desc: "Pork meat skewers", emoji: "🍢", link: "http://google.com/maps/@16.0579932,108.2134391,15z/data=!4m2!6m1!1s1L3x5ySfqhJ2OvLhexiALwvNKOZv9edY?entry=ttu" },
+            { name: "Bò Lá Lốt", desc: "Grilled beef in betel leaves", emoji: "🌿", link: "https://www.google.com/maps/@16.0715653,108.22195,15z/data=!3m1!4b1!4m2!6m1!1s1PJKER1oIWnxxI8u5-bd861Sdf-JTqOo?entry=ttu" },
+            { name: "Bánh Tráng Cuốn", desc: "Rice-paper rolls with pork", emoji: "🥬", link: "https://www.google.com/maps/@16.0466496,108.2106309,14z/data=!3m1!4b1!4m2!6m1!1s1CRu3wsqOaBMLqz4_uJUMN7-RB8g4xvI?entry=ttu" },
+            { name: "Hải Sản", desc: "Fresh seafood restaurants", emoji: "🦐", link: "http://google.com/maps/@16.0601056,108.2030728,13.5z/data=!4m2!6m1!1s1i3OSLqxPJXgI81wXHmkdAzT2GcX4jg8?entry=ttu" },
+            { name: "Hải Sản Bình Dân", desc: "Cheaper local seafood spots", emoji: "💰", link: "http://google.com/maps/@16.0794441,108.2320482,15z/data=!4m2!6m1!1s1d8N6w-FUMQ8Hv_d43oeBuT-T51C3p-c?entry=ttu" },
+            { name: "Lẩu", desc: "Hot pot - Thai / Beef / Fish", emoji: "♨️", link: "https://www.google.com/maps/@16.0724963,108.2136747,14z/data=!3m1!4b1!4m2!6m1!1s1yetI0Ub2PHsGUWXXGzxHyU00cILkIA0?entry=ttu" },
+            { name: "Vịt Quay", desc: "Vietnam-style roast duck", emoji: "🍖", link: "https://www.google.com/maps/@16.038881,108.2214412,13z/data=!3m1!4b1!4m2!6m1!1s1AjS5wHMXSMrsge76_N6YfXqY7pfuySM?entry=ttu" }
+        ];
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+        // ============================================
+        // WHEEL CONFIGURATION
+        // ============================================
+        const canvas = document.getElementById('wheel-canvas');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spin-btn');
+        const wheelCenter = document.getElementById('wheel-center');
+        const resultCard = document.getElementById('result-card');
+        const resultEmoji = document.getElementById('result-emoji');
+        const resultName = document.getElementById('result-name');
+        const resultDesc = document.getElementById('result-desc');
+        const resultLink = document.getElementById('result-link');
+
+        let currentRotation = 0;
+        let isSpinning = false;
+        let currentResult = null;
+
+        // Cross-browser requestAnimationFrame
+        const requestAnimFrame = (function() {
+            return window.requestAnimationFrame ||
+                   window.webkitRequestAnimationFrame ||
+                   window.mozRequestAnimationFrame ||
+                   function(callback) {
+                       window.setTimeout(callback, 1000 / 60);
+                   };
+        })();
+
+        // Cross-browser performance.now()
+        const getTime = (function() {
+            if (window.performance && window.performance.now) {
+                return function() { return window.performance.now(); };
+            } else {
+                return function() { return Date.now(); };
+            }
+        })();
+
+        // Color palette for wheel segments
+        const colors = [
+            '#E84A27', '#F5A623', '#2D5A45', '#C75B39', '#A8B5A0',
+            '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+            '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9',
+            '#F8B500', '#FF6F61', '#6B5B95', '#88B04B', '#F7CAC9',
+            '#92A8D1', '#955251', '#B565A7', '#009B77', '#DD4124',
+            '#D65076', '#45B8AC', '#EFC050', '#5B5EA6', '#9B2335',
+            '#DFCFBE', '#55B4B0', '#E15D44', '#7FCDCD'
+        ];
+
+        // ============================================
+        // DRAW WHEEL
+        // ============================================
+        function drawWheel() {
+            var size = Math.min(canvas.parentElement.offsetWidth, canvas.parentElement.offsetHeight);
+            canvas.width = size * 2; // For retina
+            canvas.height = size * 2;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+            ctx.scale(2, 2);
+
+            var centerX = size / 2;
+            var centerY = size / 2;
+            var radius = size / 2 - 10;
+            var segmentAngle = (2 * Math.PI) / foodItems.length;
+
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(currentRotation);
+            ctx.translate(-centerX, -centerY);
+
+            foodItems.forEach(function(item, index) {
+                var startAngle = index * segmentAngle - Math.PI / 2;
+                var endAngle = startAngle + segmentAngle;
+
+                // Draw segment
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                ctx.closePath();
+
+                // Gradient fill
+                var gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+                gradient.addColorStop(0, lightenColor(colors[index % colors.length], 20));
+                gradient.addColorStop(1, colors[index % colors.length]);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                // Border
+                ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Draw emoji
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(startAngle + segmentAngle / 2);
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.font = Math.max(16, radius / 12) + 'px Arial';
+                ctx.fillText(item.emoji, radius * 0.7, 0);
+                ctx.restore();
             });
-        }, observerOptions);
 
-        document.querySelectorAll('.food-section').forEach(section => {
-            observer.observe(section);
+            // Outer ring decoration
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            // Inner circle shadow
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 45, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function lightenColor(color, percent) {
+            var num = parseInt(color.replace('#', ''), 16);
+            var amt = Math.round(2.55 * percent);
+            var R = (num >> 16) + amt;
+            var G = (num >> 8 & 0x00FF) + amt;
+            var B = (num & 0x0000FF) + amt;
+            return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+                (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+                (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+        }
+
+        // ============================================
+        // SPIN LOGIC
+        // ============================================
+        function spin() {
+            if (isSpinning) return;
+            isSpinning = true;
+            
+            spinBtn.disabled = true;
+            spinBtn.classList.add('spinning');
+            spinBtn.textContent = '🎰 Spinning...';
+            resultCard.classList.remove('show');
+
+            // Random spins (5-10 full rotations) + random segment
+            var spins = 5 + Math.random() * 5;
+            var randomSegment = Math.floor(Math.random() * foodItems.length);
+            var segmentAngle = (2 * Math.PI) / foodItems.length;
+            
+            // Calculate target rotation (pointer is at top, so we need to account for that)
+            var targetRotation = currentRotation + (spins * 2 * Math.PI) + 
+                (randomSegment * segmentAngle) + (segmentAngle / 2);
+
+            var duration = 5000 + Math.random() * 2000; // 5-7 seconds
+            var startTime = getTime();
+            var startRotation = currentRotation;
+
+            function animate() {
+                var currentTime = getTime();
+                var elapsed = currentTime - startTime;
+                var progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function (ease out cubic)
+                var easeOut = 1 - Math.pow(1 - progress, 3);
+                
+                currentRotation = startRotation + (targetRotation - startRotation) * easeOut;
+                drawWheel();
+
+                if (progress < 1) {
+                    requestAnimFrame(animate);
+                } else {
+                    // Spinning complete
+                    isSpinning = false;
+                    spinBtn.disabled = false;
+                    spinBtn.classList.remove('spinning');
+                    spinBtn.textContent = '🎲 Spin Again!';
+                    
+                    // Show result
+                    showResult(randomSegment);
+                }
+            }
+
+            requestAnimFrame(animate);
+        }
+
+        function showResult(index) {
+            var item = foodItems[index];
+            currentResult = item;
+            resultEmoji.textContent = item.emoji;
+            resultName.textContent = item.name;
+            resultDesc.textContent = item.desc;
+            
+            // Set href attribute directly for better compatibility
+            resultLink.setAttribute('href', item.link);
+            resultLink.href = item.link;
+            
+            setTimeout(function() {
+                resultCard.classList.add('show');
+                createConfetti();
+            }, 300);
+        }
+
+        // Ensure the Google Maps link works across all browsers
+        resultLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (currentResult && currentResult.link) {
+                // Use location.href as fallback if window.open is blocked
+                var newWindow = window.open(currentResult.link, '_blank');
+                if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                    // Popup was blocked, use direct navigation
+                    window.location.href = currentResult.link;
+                }
+            }
+            return false;
         });
 
-        // Smooth scroll for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        // Also handle touch events for mobile Safari
+        resultLink.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            if (currentResult && currentResult.link) {
+                window.open(currentResult.link, '_blank');
+            }
+        }, { passive: false });
+
+        // ============================================
+        // CONFETTI EFFECT
+        // ============================================
+        function createConfetti() {
+            var confettiColors = ['#E84A27', '#F5A623', '#2D5A45', '#FF6B6B', '#4ECDC4'];
+            
+            for (var i = 0; i < 50; i++) {
+                (function(index) {
+                    setTimeout(function() {
+                        var confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.top = '-10px';
+                        confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                        confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                        confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                        confetti.style.webkitAnimationDuration = (Math.random() * 2 + 2) + 's';
+                        document.body.appendChild(confetti);
+                        
+                        setTimeout(function() { 
+                            if (confetti.parentNode) {
+                                confetti.parentNode.removeChild(confetti);
+                            }
+                        }, 4000);
+                    }, index * 30);
+                })(i);
+            }
+        }
+
+        // ============================================
+        // EVENT LISTENERS (with touch support for mobile)
+        // ============================================
+        spinBtn.addEventListener('click', spin);
+        wheelCenter.addEventListener('click', spin);
+        canvas.addEventListener('click', spin);
+        
+        // Touch support for mobile Safari and other touch browsers
+        spinBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            spin();
+        }, { passive: false });
+        
+        wheelCenter.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            spin();
+        }, { passive: false });
+        
+        canvas.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            spin();
+        }, { passive: false });
+
+        // Initial draw
+        drawWheel();
+
+        // Redraw on resize
+        var resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                if (!isSpinning) {
+                    drawWheel();
+                }
+            }, 100);
+        });
+
+        // ============================================
+        // INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
+        // ============================================
+        if ('IntersectionObserver' in window) {
+            var observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
                 });
+            }, observerOptions);
+
+            document.querySelectorAll('.food-section').forEach(function(section) {
+                observer.observe(section);
+            });
+        } else {
+            // Fallback for browsers without IntersectionObserver
+            document.querySelectorAll('.food-section').forEach(function(section) {
+                section.classList.add('visible');
+            });
+        }
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
         // Parallax effect on hero
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero-content');
+        window.addEventListener('scroll', function() {
+            var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+            var hero = document.querySelector('.hero-content');
             if (hero && scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                hero.style.transform = 'translateY(' + (scrolled * 0.3) + 'px)';
                 hero.style.opacity = 1 - (scrolled / window.innerHeight);
             }
         });
