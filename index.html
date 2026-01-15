@@ -1,0 +1,3687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đà Nẵng Food Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vermillion: #E84A27;
+            --golden: #F5A623;
+            --jade: #2D5A45;
+            --cream: #FDF6E3;
+            --charcoal: #1A1A1A;
+            --terracotta: #C75B39;
+            --sage: #A8B5A0;
+            --paper: #FAF7F2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--paper);
+            color: var(--charcoal);
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            background-image: url('background.jpg');
+            background-position: top center;
+            background-size: cover; 
+            background-repeat: no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.3) 0%,
+                rgba(0,0,0,0.1) 60%,
+                var(--paper) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 3;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: rgba(255,255,255,0.95);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 12vw, 8rem);
+            color: white;
+            font-weight: 700;
+            line-height: 0.95;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.4);
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .hero-title span {
+            display: block;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: rgba(255,255,255,0.9);
+            margin-top: 1rem;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* NEW HERO BUTTON */
+        .hero-btn {
+            background: linear-gradient(135deg, var(--golden) 0%, var(--vermillion) 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(232,74,39,0.4);
+            font-family: 'Be Vietnam Pro', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            animation: fadeInUp 1s ease-out 0.8s both, pulseBtn 2s infinite 2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(232,74,39,0.6);
+        }
+
+        @keyframes pulseBtn {
+            0% { transform: scale(1); box-shadow: 0 4px 20px rgba(232,74,39,0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 4px 30px rgba(232,74,39,0.6); }
+            100% { transform: scale(1); box-shadow: 0 4px 20px rgba(232,74,39,0.4); }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            z-index: 3;
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--charcoal);
+            opacity: 0.7;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Decorative Elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .floating-element:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; font-size: 4rem; }
+        .floating-element:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; font-size: 3rem; }
+        .floating-element:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 2s; font-size: 5rem; }
+        .floating-element:nth-child(4) { bottom: 30%; right: 10%; animation-delay: 0.5s; font-size: 3.5rem; }
+        .floating-element:nth-child(5) { top: 40%; left: 5%; animation-delay: 1.5s; font-size: 2.5rem; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* ============================================
+           ROULETTE MODAL (Updated)
+           ============================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: linear-gradient(180deg, var(--charcoal) 0%, #2a2a2a 100%);
+            width: 95%;
+            max-width: 600px;
+            max-height: 95vh;
+            border-radius: 24px;
+            position: relative;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            /* Hide scrollbar */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .modal-content::-webkit-scrollbar { 
+            display: none; 
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            z-index: 20;
+            background: none;
+            border: none;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: white;
+        }
+
+        /* Roulette Section Internal Styles */
+        .roulette-section {
+            padding: 3rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roulette-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(232,74,39,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .roulette-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .roulette-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--golden);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .roulette-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .roulette-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .wheel-wrapper {
+            position: relative;
+            width: min(400px, 80vw);
+            height: min(400px, 80vw);
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        .wheel-pointer svg {
+            width: 50px;
+            height: 60px;
+        }
+
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--golden) 0%, var(--vermillion) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 2px 10px rgba(255,255,255,0.3);
+            z-index: 5;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .wheel-center:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .wheel-center:active {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        #wheel-canvas {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+        }
+
+        #wheel-canvas:hover {
+            filter: brightness(1.05);
+        }
+
+        .spin-button {
+            background: linear-gradient(135deg, var(--vermillion) 0%, var(--golden) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(232,74,39,0.4);
+            font-family: 'Be Vietnam Pro', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .spin-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(232,74,39,0.5);
+        }
+
+        .spin-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .spin-button.spinning {
+            -webkit-animation: buttonPulse 0.5s ease infinite;
+            animation: buttonPulse 0.5s ease infinite;
+        }
+
+        @-webkit-keyframes buttonPulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(232,74,39,0.4); }
+            50% { box-shadow: 0 4px 40px rgba(232,74,39,0.8); }
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(232,74,39,0.4); }
+            50% { box-shadow: 0 4px 40px rgba(232,74,39,0.8); }
+        }
+
+        /* Result Display */
+        .result-display {
+            margin-top: 1rem;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .result-card {
+            background: rgba(255,255,255,0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            -webkit-transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            width: 100%;
+        }
+
+        .result-card.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .result-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            -webkit-animation: resultBounce 0.6s ease;
+            animation: resultBounce 0.6s ease;
+            display: block;
+        }
+
+        /* Custom illustration in the result card */
+        .result-custom-img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            /* Makes white background transparent on light backgrounds */
+            mix-blend-mode: multiply; 
+            background: #fff; /* Circle bg to ensure multiply works on dark overlay */
+            border-radius: 50%;
+            padding: 10px;
+            -webkit-animation: resultBounce 0.6s ease;
+            animation: resultBounce 0.6s ease;
+        }
+
+        @-webkit-keyframes resultBounce {
+            0% { -webkit-transform: scale(0); transform: scale(0); }
+            50% { -webkit-transform: scale(1.3); transform: scale(1.3); }
+            100% { -webkit-transform: scale(1); transform: scale(1); }
+        }
+
+        @keyframes resultBounce {
+            0% { -webkit-transform: scale(0); transform: scale(0); }
+            50% { -webkit-transform: scale(1.3); transform: scale(1.3); }
+            100% { -webkit-transform: scale(1); transform: scale(1); }
+        }
+
+        .result-text {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--vermillion);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .result-link:hover {
+            background: var(--golden);
+            transform: translateY(-2px);
+        }
+
+        .result-link svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Category Section */
+        .categories {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+
+        /* Category Cards */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        /* Food Items Grid */
+        .food-section {
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .food-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .food-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--sage);
+        }
+
+        .food-section-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--vermillion), var(--golden));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .food-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--charcoal);
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .food-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .food-card:hover::before {
+            left: 100%;
+        }
+
+        .food-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(232,74,39,0.15);
+        }
+
+        .food-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Custom food image in grid */
+        .custom-food-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            display: block;
+            margin-bottom: 1rem;
+            /* Blends white background into white card */
+            mix-blend-mode: multiply; 
+        }
+
+        .food-name-viet {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 0.4rem;
+        }
+
+        .food-name-eng {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .food-card-arrow {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 36px;
+            height: 36px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .food-card:hover .food-card-arrow {
+            background: var(--vermillion);
+            transform: translateX(4px);
+        }
+
+        .food-card:hover .food-card-arrow svg {
+            stroke: white;
+        }
+
+        .food-card-arrow svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--terracotta);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-subtext {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer-emoji {
+            font-size: 2rem;
+            margin-top: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories {
+                padding: 4rem 1.5rem;
+            }
+
+            .wheel-wrapper {
+                width: 320px;
+                height: 320px;
+            }
+
+            .wheel-center {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .result-card {
+                padding: 1.5rem 2rem;
+            }
+
+            .result-name {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Stagger animations */
+        .food-card:nth-child(1) { animation-delay: 0.05s; }
+        .food-card:nth-child(2) { animation-delay: 0.1s; }
+        .food-card:nth-child(3) { animation-delay: 0.15s; }
+        .food-card:nth-child(4) { animation-delay: 0.2s; }
+        .food-card:nth-child(5) { animation-delay: 0.25s; }
+        .food-card:nth-child(6) { animation-delay: 0.3s; }
+
+        .food-section.visible .food-card {
+            animation: cardReveal 0.6s ease-out both;
+        }
+
+        @keyframes cardReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Special highlight cards */
+        .highlight-section {
+            background: linear-gradient(135deg, var(--jade) 0%, #3D6B55 100%);
+            border-radius: 32px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            color: white;
+        }
+
+        .highlight-section .food-section-header {
+            border-bottom-color: rgba(255,255,255,0.2);
+        }
+
+        .highlight-section .food-section-icon {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .highlight-section .food-section-title {
+            color: white;
+        }
+
+        .highlight-section .food-card {
+            background: rgba(255,255,255,0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .highlight-section .food-name-viet {
+            color: white;
+        }
+
+        .highlight-section .food-name-eng {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .highlight-section .food-card-arrow {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .highlight-section .food-card-arrow svg {
+            stroke: white;
+        }
+
+        .highlight-section .food-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Confetti animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 1000;
+            -webkit-animation: confettiFall 3s ease-out forwards;
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        @-webkit-keyframes confettiFall {
+            0% {
+                -webkit-transform: translateY(0) rotate(0deg);
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translateY(100vh) rotate(720deg);
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes confettiFall {
+            0% {
+                -webkit-transform: translateY(0) rotate(0deg);
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translateY(100vh) rotate(720deg);
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================
+           FOOD DETAIL MODAL
+           ============================================ */
+        .food-detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+        }
+
+        .food-detail-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .food-detail-card {
+            background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            border-radius: 24px;
+            position: relative;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .food-detail-card::-webkit-scrollbar {
+            display: none;
+        }
+
+        .food-detail-close {
+            position: sticky;
+            top: 1rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.7);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            margin-left: auto;
+            margin-right: 1rem;
+            margin-top: 1rem;
+            margin-bottom: -50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .food-detail-close:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
+        }
+
+        .food-detail-photo {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 24px 24px 0 0;
+        }
+
+        .food-detail-content {
+            padding: 1.5rem;
+        }
+
+        .food-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .food-detail-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .food-detail-subtitle {
+            color: rgba(255,255,255,0.6);
+            font-size: 1rem;
+        }
+
+        .food-detail-navigate {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--vermillion) 0%, var(--golden) 100%);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .food-detail-navigate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(232,74,39,0.5);
+        }
+
+        .food-detail-navigate svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .food-detail-overview {
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .food-detail-sketch-section {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .food-detail-sketch-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--golden);
+            margin-bottom: 1rem;
+        }
+
+        .food-detail-sketch {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            background: white;
+            padding: 0.5rem;
+        }
+
+        .food-detail-details {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 1.25rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .food-detail-details-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+
+        .food-detail-details-text {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .food-detail-details-text ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .food-detail-details-text li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .food-detail-details-text li::before {
+            content: '•';
+            color: var(--golden);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="floating-element">🍜</div>
+        <div class="floating-element">🥢</div>
+        <div class="floating-element">🌿</div>
+        <div class="floating-element">🍚</div>
+        <div class="floating-element">🥖</div>
+        
+        <div class="hero-content">
+            <p class="hero-subtitle">Discover Authentic Vietnamese Cuisine</p>
+            <h1 class="hero-title">Đà Nẵng<span>Food Guide</span></h1>
+            <p class="hero-tagline">33 curated dishes • Local favorites • Google Maps linked</p>
+            
+            <button id="open-wheel-btn" class="hero-btn">
+                <span>🎲</span> I'm feeling lucky - decide what I should eat
+            </button>
+        </div>
+        
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <div id="roulette-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" id="close-wheel-btn">×</button>
+            
+            <section class="roulette-section">
+                <div class="roulette-header">
+                    <p class="roulette-label">Can't Decide?</p>
+                    <h2 class="roulette-title">🎰 Spin the Food Wheel!</h2>
+                </div>
+
+                <div class="roulette-container">
+                    <div class="wheel-wrapper">
+                        <div class="wheel-pointer">
+                            <svg viewBox="0 0 50 60">
+                                <defs>
+                                    <linearGradient id="pointerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#F5A623"/>
+                                        <stop offset="100%" style="stop-color:#E84A27"/>
+                                    </linearGradient>
+                                    <filter id="pointerShadow">
+                                        <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+                                    </filter>
+                                </defs>
+                                <polygon points="25,55 10,10 40,10" fill="url(#pointerGrad)" filter="url(#pointerShadow)"/>
+                                <polygon points="25,45 15,15 35,15" fill="white" opacity="0.3"/>
+                            </svg>
+                        </div>
+                        <canvas id="wheel-canvas"></canvas>
+                        <div class="wheel-center" id="wheel-center" title="Click to spin!">🍜</div>
+                    </div>
+
+                    <button class="spin-button" id="spin-btn">🎲 Spin the Wheel!</button>
+
+                    <div class="result-display">
+                        <div class="result-card" id="result-card">
+                            <div class="result-emoji" id="result-emoji">🍜</div>
+                            <p class="result-text">Tomorrow you should eat...</p>
+                            <h3 class="result-name" id="result-name">Phở</h3>
+                            <p class="result-desc" id="result-desc">Iconic rice noodle soup with meats</p>
+                            <a href="#" class="result-link" id="result-link" target="_blank">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                Open in Google Maps
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <main class="categories">
+        <div class="section-header">
+            <p class="section-label">Explore by Category</p>
+            <h2 class="section-title">What are you craving?</h2>
+        </div>
+
+        <div class="highlight-section food-section" id="michelin">
+            <div class="food-section-header">
+                <div class="food-section-icon">⭐</div>
+                <h3 class="food-section-title">Michelin Selected & Coffee</h3>
+            </div>
+            <div class="food-grid">
+                <div class="food-card" onclick="openFoodDetail('michelin-detail-modal')" style="cursor: pointer;">
+                    <img src="michelinselected.jpg" alt="Michelin Selected" class="custom-food-img">
+                    <div class="food-name-viet">Michelin Selected</div>
+                    <div class="food-name-eng">Award-winning restaurants recognized for quality</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('caphe-detail-modal')" style="cursor: pointer;">
+                    <img src="Ca_Phe.jpg" alt="Cà Phê Đà Nẵng" class="custom-food-img">
+                    <div class="food-name-viet">Cà Phê Đà Nẵng</div>
+                    <div class="food-name-eng">Best local coffee shops and cafés</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="food-section" id="banh-mi">
+            <div class="food-section-header">
+                <div class="food-section-icon">🥖</div>
+                <h3 class="food-section-title">Bánh Mì & Street Snacks</h3>
+            </div>
+            <div class="food-grid">
+                <div class="food-card" onclick="openFoodDetail('banhmi-detail-modal')" style="cursor: pointer;">
+                    <img src="2. Bánh mì heo quay.jpg" alt="Bánh Mì" class="custom-food-img">
+                    <div class="food-name-viet">Bánh Mì Heo Quay</div>
+                    <div class="food-name-eng">Crispy roast pork sandwich</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('banhxeo-detail-modal')" style="cursor: pointer;">
+                    <img src="4. Bánh xèo.jpg" alt="Bánh Xèo" class="custom-food-img">
+                    <div class="food-name-viet">Bánh Xèo</div>
+                    <div class="food-name-eng">Crispy rice pancakes with shrimp & sauce</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('banhtrangkep-detail-modal')" style="cursor: pointer;">
+                    <img src="22. Bánh tráng kẹp A Ri.jpg" alt="Bánh Tráng Kẹp" class="custom-food-img">
+                    <div class="food-name-viet">Bánh Tráng Kẹp A Ri</div>
+                    <div class="food-name-eng">Grilled pressed rice paper with egg & dried beef</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('banhcan-detail-modal')" style="cursor: pointer;">
+                    <img src="29. Bánh Căn.jpg" alt="Bánh Căn" class="custom-food-img">
+                    <div class="food-name-viet">Bánh Căn</div>
+                    <div class="food-name-eng">Mini rice pancakes with egg or seafood</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('banhbeo-detail-modal')" style="cursor: pointer;">
+                    <img src="8. Bánh Bèo, Bánh Nậm, & Bánh Bột Lọc.jpg" alt="Bánh Bèo" class="custom-food-img">
+                    <div class="food-name-viet">Bánh Bèo, Bánh Nậm, Bánh Bột Lọc</div>
+                    <div class="food-name-eng">Various Huế-style rice cakes</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="food-section" id="noodles">
+            <div class="food-section-header">
+                <div class="food-section-icon">🍜</div>
+                <h3 class="food-section-title">Noodle Soups & Bún</h3>
+            </div>
+            <div class="food-grid">
+                <div class="food-card" onclick="openFoodDetail('pho-detail-modal')" style="cursor: pointer;">
+                    <img src="17. Phở.jpg" alt="Phở" class="custom-food-img">
+                    <div class="food-name-viet">Phở</div>
+                    <div class="food-name-eng">Iconic rice noodle soup with meats</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                
+                <div class="food-card" onclick="openFoodDetail('miquang-detail-modal')" style="cursor: pointer;">
+                    <img src="3. Mì Quảng.jpg" alt="Mì Quảng" class="custom-food-img">
+                    <div class="food-name-viet">Mì Quảng</div>
+                    <div class="food-name-eng">Turmeric noodles with sauce & various meats</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                
+                <div class="food-card" onclick="openFoodDetail('caolau-detail-modal')" style="cursor: pointer;">
+                    <img src="5. Cao Lầu.jpg" alt="Cao Lầu" class="custom-food-img">
+                    <div class="food-name-viet">Cao Lầu</div>
+                    <div class="food-name-eng">Hội An noodles with BBQ pork</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                
+                <div class="food-card" onclick="openFoodDetail('bunbohue-detail-modal')" style="cursor: pointer;">
+                    <img src="9. Bún bò Huế.jpg" alt="Bún Bò Huế" class="custom-food-img">
+                    <div class="food-name-viet">Bún Bò Huế</div>
+                    <div class="food-name-eng">Hearty spicy beef noodle soup</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                
+                <div class="food-card" onclick="openFoodDetail('bunchaca-detail-modal')" style="cursor: pointer;">
+                    <img src="10. Bún chả cá.jpg" alt="Bún Chả Cá" class="custom-food-img">
+                    <div class="food-name-viet">Bún Chả Cá</div>
+                    <div class="food-name-eng">Noodle soup with fish cakes</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+
+                <div class="food-card" onclick="openFoodDetail('buncha-detail-modal')" style="cursor: pointer;">
+                    <img src="11. Bún chả.jpg" alt="Bún Chả" class="custom-food-img">
+                    <div class="food-name-viet">Bún Chả</div>
+                    <div class="food-name-eng">Grilled pork with rice noodles & herbs</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+
+                <div class="food-card" onclick="openFoodDetail('hutieu-detail-modal')" style="cursor: pointer;">
+                    <img src="12. Hủ tiếu Nam Vang.jpg" alt="Hủ Tiếu" class="custom-food-img">
+                    <div class="food-name-viet">Hủ Tiếu Nam Vang</div>
+                    <div class="food-name-eng">Cambodian Phnom Penh noodle soup</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+
+                <div class="food-card" onclick="openFoodDetail('bunmam-detail-modal')" style="cursor: pointer;">
+                    <img src="13. Bún mắm.jpg" alt="Bún Mắm" class="custom-food-img">
+                    <div class="food-name-viet">Bún Mắm</div>
+                    <div class="food-name-eng">Noodle soup with fermented fish broth</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+
+                <div class="food-card" onclick="openFoodDetail('bunthitnuong-detail-modal')" style="cursor: pointer;">
+                    <img src="25. Bún thịt nướng.jpg" alt="Bún Thịt Nướng" class="custom-food-img">
+                    <div class="food-name-viet">Bún Thịt Nướng</div>
+                    <div class="food-name-eng">Vermicelli rice with grilled pork</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                
+                <div class="food-card" onclick="openFoodDetail('bunrieu-detail-modal')" style="cursor: pointer;">
+                    <img src="27. Bún riêu.jpg" alt="Bún Riêu" class="custom-food-img">
+                    <div class="food-name-viet">Bún Riêu</div>
+                    <div class="food-name-eng">Rice vermicelli soup with crab paste & tofu</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                
+                <div class="food-card" onclick="openFoodDetail('banhcanhcaloc-detail-modal')" style="cursor: pointer;">
+                    <img src="28. Bánh Canh cá lóc.jpg" alt="Bánh Canh" class="custom-food-img">
+                    <div class="food-name-viet">Bánh Canh Cá Lóc</div>
+                    <div class="food-name-eng">Thick noodle soup with snakehead fish</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="food-section" id="rice">
+            <div class="food-section-header">
+                <div class="food-section-icon">🍚</div>
+                <h3 class="food-section-title">Rice Dishes & Cơm</h3>
+            </div>
+            <div class="food-grid">
+                <div class="food-card" onclick="openFoodDetail('comgatamky-detail-modal')" style="cursor: pointer;">
+                    <img src="18. Cơm gà Tam Kỳ  Hội An.jpg" alt="Cơm Gà Tam Kỳ" class="custom-food-img">
+                    <div class="food-name-viet">Cơm Gà Tam Kỳ / Hội An</div>
+                    <div class="food-name-eng">Turmeric rice with shredded chicken & herbs</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('comga-detail-modal')" style="cursor: pointer;">
+                    <img src="19. Cơm gà.jpg" alt="Cơm Gà" class="custom-food-img">
+                    <div class="food-name-viet">Cơm Gà</div>
+                    <div class="food-name-eng">Classic chicken rice with chili-garlic sauce</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('comtam-detail-modal')" style="cursor: pointer;">
+                    <img src="20. Cơm tấm.jpg" alt="Cơm Tấm" class="custom-food-img">
+                    <div class="food-name-viet">Cơm Tấm</div>
+                    <div class="food-name-eng">Broken rice with grilled pork chops</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                
+                <div class="food-card" onclick="openFoodDetail('xoi-detail-modal')" style="cursor: pointer;">
+                    <img src="7. Xôi mặn  Xôi ngọt.jpg" alt="Xôi" class="custom-food-img">
+                    <div class="food-name-viet">Xôi Mặn / Xôi Ngọt</div>
+                    <div class="food-name-eng">Savory/sweet sticky rice with chicken</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                
+                <div class="food-card" onclick="openFoodDetail('xoigaxe-detail-modal')" style="cursor: pointer;">
+                    <img src="21. Xôi gà xé.jpg" alt="Xôi Gà Xé" class="custom-food-img">
+                    <div class="food-name-viet">Xôi Gà Xé</div>
+                    <div class="food-name-eng">Sticky rice with shredded chicken & fried shallots</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('comnieu-detail-modal')" style="cursor: pointer;">
+                    <img src="23. Cơm niêu cá kho  thịt kho trứng.jpg" alt="Cơm Niêu" class="custom-food-img">
+                    <div class="food-name-viet">Cơm Niêu Cá Kho / Thịt Kho Trứng</div>
+                    <div class="food-name-eng">Clay pot rice with braised fish or pork & egg</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="food-section" id="porridge">
+            <div class="food-section-header">
+                <div class="food-section-icon">🥣</div>
+                <h3 class="food-section-title">Cháo & Comfort Food</h3>
+            </div>
+            <div class="food-grid">
+                <div class="food-card" onclick="openFoodDetail('chao-detail-modal')" style="cursor: pointer;">
+                    <img src="1. chao.jpg" alt="Cháo" class="custom-food-img">
+                    <div class="food-name-viet">Cháo</div>
+                    <div class="food-name-eng">Congee rice porridge with meat</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+
+                <div class="food-card" onclick="openFoodDetail('chaovit-detail-modal')" style="cursor: pointer;">
+                    <img src="15. Cháo Vịt.jpg" alt="Cháo Vịt" class="custom-food-img">
+                    <div class="food-name-viet">Cháo Vịt</div>
+                    <div class="food-name-eng">Duck rice porridge</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+
+                <div class="food-card" onclick="openFoodDetail('bone-detail-modal')" style="cursor: pointer;">
+                    <img src="14. Bò né.jpg" alt="Bò Né" class="custom-food-img">
+                    <div class="food-name-viet">Bò Né</div>
+                    <div class="food-name-eng">Sizzling beef on hot cast iron plate</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="food-section" id="grilled">
+            <div class="food-section-header">
+                <div class="food-section-icon">🔥</div>
+                <h3 class="food-section-title">Grilled & BBQ</h3>
+            </div>
+            <div class="food-grid">
+                <div class="food-card" onclick="openFoodDetail('nemlui-detail-modal')" style="cursor: pointer;">
+                    <img src="6. Nem lui.jpg" alt="Nem Lụi" class="custom-food-img">
+                    <div class="food-name-viet">Nem Lụi</div>
+                    <div class="food-name-eng">Pork meat skewers</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('bolalot-detail-modal')" style="cursor: pointer;">
+                    <img src="26. Bò lá lốt.jpg" alt="Bò Lá Lốt" class="custom-food-img">
+                    <div class="food-name-viet">Bò Lá Lốt</div>
+                    <div class="food-name-eng">Grilled beef in betel leaves with herbs</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+
+                <div class="food-card" onclick="openFoodDetail('banhtrangcuon-detail-modal')" style="cursor: pointer;">
+                    <img src="16. Bánh Tráng Cuốn Thịt Heo.jpg" alt="Bánh Tráng Cuốn" class="custom-food-img">
+                    <div class="food-name-viet">Bánh Tráng Cuốn Thịt Heo</div>
+                    <div class="food-name-eng">Rice-paper rolls with pork & fermented fish sauce</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="food-section" id="seafood">
+            <div class="food-section-header">
+                <div class="food-section-icon">🦞</div>
+                <h3 class="food-section-title">Seafood & Hot Pot</h3>
+            </div>
+            <div class="food-grid">
+                <div class="food-card" onclick="openFoodDetail('seafood-detail-modal')" style="cursor: pointer;">
+                    <img src="30. Seafood.jpg" alt="Hải Sản" class="custom-food-img">
+                    <div class="food-name-viet">Hải Sản</div>
+                    <div class="food-name-eng">Fresh seafood restaurants</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('localseafood-detail-modal')" style="cursor: pointer;">
+                    <img src="31. Cheaper local seafood.jpg" alt="Hải Sản Bình Dân" class="custom-food-img">
+                    <div class="food-name-viet">Hải Sản Bình Dân</div>
+                    <div class="food-name-eng">Cheaper local seafood spots</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+                <div class="food-card" onclick="openFoodDetail('lau-detail-modal')" style="cursor: pointer;">
+                    <img src="24. Lẩu thái  bò  cá.jpg" alt="Lẩu" class="custom-food-img">
+                    <div class="food-name-viet">Lẩu Thái / Bò / Cá</div>
+                    <div class="food-name-eng">Hot pot - Thai style / Beef / Fish</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="food-section" id="duck">
+            <div class="food-section-header">
+                <div class="food-section-icon">🦆</div>
+                <h3 class="food-section-title">Roast Duck</h3>
+            </div>
+            <div class="food-grid">
+                <div class="food-card" onclick="openFoodDetail('vitquay-detail-modal')" style="cursor: pointer;">
+                    <img src="32. Vietnam-style roast duck with crispy skin.jpg" alt="Vịt Quay" class="custom-food-img">
+                    <div class="food-name-viet">Vịt Quay Da Giòn</div>
+                    <div class="food-name-eng">Vietnam-style roast duck with crispy skin</div>
+                    <div class="food-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p class="footer-text">Chúc ngon miệng!</p>
+        <p class="footer-subtext">Enjoy your meal in Đà Nẵng</p>
+        <div class="footer-emoji">🍜</div>
+    </footer>
+
+    <script>
+        // ============================================
+        // FOOD DATA
+        // ============================================
+        const foodItems = [
+            { name: "Michelin Selected", desc: "Award-winning restaurants recognized for quality", emoji: "🏆", image: "michelinselected.jpg", link: "https://www.google.com/maps/@16.0684492,108.2169202,14z/data=!3m1!4b1!4m2!6m1!1s1I8Yp71z3E0weyU8Nf5aDqJDFbN9LgVo?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            /* UPDATED BANH MI LINK HERE */
+            { name: "Bánh Mì Heo Quay", desc: "Crispy roast pork sandwich", emoji: "🥖", image: "2. Bánh mì heo quay.jpg", link: "https://www.google.com/maps/@16.0583239,108.2173675,15z/data=!3m1!4b1!4m2!6m1!1s1UQxKdPKMWMY3gumi-3IREH9l-8EgsIE?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bánh Xèo", desc: "Crispy rice pancakes with shrimp & sauce", emoji: "🥞", image: "4. Bánh xèo.jpg", link: "https://www.google.com/maps/@16.0567357,108.2143488,14z/data=!3m1!4b1!4m2!6m1!1s1wsNrzPwwHL9Ys8L4mqjsIeICzI1i-Os?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bánh Tráng Kẹp", desc: "Grilled pressed rice paper with egg", emoji: "🫓", image: "22. Bánh tráng kẹp A Ri.jpg", link: "https://www.google.com/maps/@16.0569737,108.2177782,15z/data=!3m1!4b1!4m2!6m1!1s1rqokxHRw5IKA_6merhsQXsoS6oOo45o?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bánh Căn", desc: "Mini rice pancakes with egg or seafood", emoji: "🥮", image: "29. Bánh Căn.jpg", link: "https://www.google.com/maps/@16.0535884,108.2120158,15z/data=!3m1!4b1!4m2!6m1!1s1ygYpPUW8zoWUilGTntqpLO_bKfSEpH0?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bánh Bèo", desc: "Various Huế-style rice cakes", emoji: "🍥", image: "8. Bánh Bèo, Bánh Nậm, & Bánh Bột Lọc.jpg", link: "https://www.google.com/maps/@16.0639837,108.2180303,15z/data=!3m1!4b1!4m2!6m1!1s1WwDVnXLoWlPcXeXj_afyuwuUtSIMpfs?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Phở", desc: "Iconic rice noodle soup with meats", emoji: "🍲", image: "17. Phở.jpg", link: "https://www.google.com/maps/@16.062162,108.2219499,15z/data=!3m1!4b1!4m2!6m1!1s1YI43VaOymnAdgTUXzeFY_XmBUd2Xkm0?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Mì Quảng", desc: "Turmeric noodles with sauce & meats", emoji: "🍝", image: "3. Mì Quảng.jpg", link: "https://www.google.com/maps/@16.0603566,108.1720592,13z/data=!3m1!4b1!4m2!6m1!1s1dRkfvzw4hhmCpN7jLEKhiVpTKZNL1uE?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Cao Lầu", desc: "Hội An noodles with BBQ pork", emoji: "🥡", image: "5. Cao Lầu.jpg", link: "https://google.com/maps/@16.0631523,108.2135578,14z/data=!4m2!6m1!1s1LMVtLaL1T8ILltNpyqWmvRqAflrRrIA?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bún Bò Huế", desc: "Hearty spicy beef noodle soup", emoji: "🥩", image: "9. Bún bò Huế.jpg", link: "https://www.google.com/maps/@16.0664352,108.1893795,14z/data=!3m1!4b1!4m2!6m1!1s1gjWSvjZybkooIVLtBBqO1UriUUhvl-Y?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bún Chả Cá", desc: "Noodle soup with fish cakes", emoji: "🐟", image: "10. Bún chả cá.jpg", link: "https://www.google.com/maps/@16.0521804,108.2192923,14z/data=!3m1!4b1!4m2!6m1!1s1culJftF9Dnpo6fKvZGktvI8NWtamA1A?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bún Chả", desc: "Grilled pork with rice noodles", emoji: "🥓", image: "11. Bún chả.jpg", link: "https://www.google.com/maps/@16.060527,108.2182449,14z/data=!3m1!4b1!4m2!6m1!1s1ikIDjqx6-jCYZAG0Hfd6sAp_p4zYAws?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Hủ Tiếu Nam Vang", desc: "Cambodian Phnom Penh noodle soup", emoji: "🇰🇭", image: "12. Hủ tiếu Nam Vang.jpg", link: "https://www.google.com/maps/@16.0577469,108.2194737,15z/data=!3m1!4b1!4m2!6m1!1s1nSx8juGktIZ5cc0W8LFZ0oxcCbGW3CU?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bún Mắm", desc: "Noodle soup with fermented fish broth", emoji: "🦐", image: "13. Bún mắm.jpg", link: "https://www.google.com/maps/@16.0583111,108.2156565,15z/data=!3m1!4b1!4m2!6m1!1s1EqzK8tLk9bIKuPKi26x-7kTHV3pEn3I?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bún Thịt Nướng", desc: "Vermicelli rice with grilled pork", emoji: "🔥", image: "25. Bún thịt nướng.jpg", link: "https://www.google.com/maps/@16.058235,108.2144858,14z/data=!3m1!4b1!4m2!6m1!1s1TIJfqwbcskv4ZwLyPAqae67F7QNkVd4?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bún Riêu", desc: "Rice vermicelli soup with crab paste", emoji: "🦀", image: "27. Bún riêu.jpg", link: "https://www.google.com/maps/@16.0614358,108.2111967,14z/data=!3m1!4b1!4m2!6m1!1s1ds2ITia6B7eYb574CTma21dM_VDO-WY?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bánh Canh Cá Lóc", desc: "Thick noodle soup with snakehead fish", emoji: "🐍", image: "28. Bánh Canh cá lóc.jpg", link: "https://www.google.com/maps/@16.0628319,108.2147631,14z/data=!3m1!4b1!4m2!6m1!1s1_8duQllrBX6NlDpc-ESrEiWGSqKhEmw?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Cơm Gà Tam Kỳ", desc: "Turmeric rice with shredded chicken", emoji: "🐔", image: "18. Cơm gà Tam Kỳ  Hội An.jpg", link: "https://www.google.com/maps/@16.0674244,108.2172758,14z/data=!3m1!4b1!4m2!6m1!1s1C9Hy61pCtq4rhNS7l91tVmpL1gPhC-A?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Cơm Gà", desc: "Classic chicken rice with chili-garlic", emoji: "🍗", image: "19. Cơm gà.jpg", link: "https://www.google.com/maps/@16.066039,108.2175242,15z/data=!3m1!4b1!4m2!6m1!1s1HLTq4OEjcEgaOrMYU8Ll7honO4CtVvM?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Cơm Tấm", desc: "Broken rice with grilled pork chops", emoji: "🥩", image: "20. Cơm tấm.jpg", link: "https://www.google.com/maps/@16.0480729,108.2146129,14z/data=!3m1!4b1!4m2!6m1!1s1LlkmqqY8hFOp_uSEwoExUjZWr1QQmRI?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Xôi Mặn / Ngọt", desc: "Savory/sweet sticky rice", emoji: "🍙", image: "7. Xôi mặn  Xôi ngọt.jpg", link: "https://www.google.com/maps/@16.0820911,108.2123016,14z/data=!3m1!4b1!4m2!6m1!1s1329qokEsL99TdxLxfmuxAzR8_U-inKI?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Xôi Gà Xé", desc: "Sticky rice with shredded chicken", emoji: "🧅", image: "21. Xôi gà xé.jpg", link: "https://www.google.com/maps/@16.0631523,108.2135578,14z/data=!3m1!4b1!4m2!6m1!1s1s9VvdmUhBT3p-glUys86mgFZSdxC0Cs?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Cơm Niêu", desc: "Clay pot rice with braised fish/pork", emoji: "🥘", image: "23. Cơm niêu cá kho  thịt kho trứng.jpg", link: "https://www.google.com/maps/@16.0671421,108.2140969,14z/data=!3m1!4b1!4m2!6m1!1s1vFW0oamLH92lWGRyTvreIl6-9Ne1DmA?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Cháo", desc: "Congee rice porridge with meat", emoji: "🥣", image: "1. chao.jpg", link: "https://www.google.com/maps/@16.0569564,108.2160418,14z/data=!3m1!4b1!4m2!6m1!1s1PBQnkyw6-_PBMs1KMvwLxalH14JFdZE?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Cháo Vịt", desc: "Duck rice porridge", emoji: "🦆", image: "15. Cháo Vịt.jpg", link: "https://www.google.com/maps/@16.0617965,108.1902114,14z/data=!3m1!4b1!4m2!6m1!1s1ztiKO38LP4tVnGVefAqSde-V8xKPA_s?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bò Né", desc: "Sizzling beef on hot cast iron plate", emoji: "🍳", image: "14. Bò né.jpg", link: "https://www.google.com/maps/@16.0623892,108.2190811,15z/data=!3m1!4b1!4m2!6m1!1s1Ky_pL4rVk4u_3sKNieX_qhgRzgQpuYA?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Nem Lụi", desc: "Pork meat skewers", emoji: "🍢", image: "6. Nem lui.jpg", link: "https://www.google.com/maps/@16.0643197,108.2139717,14z/data=!3m1!4b1!4m2!6m1!1s1L3x5ySfqhJ2OvLhexiALwvNKOZv9edY?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bò Lá Lốt", desc: "Grilled beef in betel leaves", emoji: "🌿", image: "26. Bò lá lốt.jpg", link: "https://www.google.com/maps/@16.0620574,108.222275,15z/data=!3m1!4b1!4m2!6m1!1s1PJKER1oIWnxxI8u5-bd861Sdf-JTqOo?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Bánh Tráng Cuốn", desc: "Rice-paper rolls with pork", emoji: "🥬", image: "16. Bánh Tráng Cuốn Thịt Heo.jpg", link: "https://www.google.com/maps/@16.0484117,108.2164372,15z/data=!3m1!4b1!4m2!6m1!1s1CRu3wsqOaBMLqz4_uJUMN7-RB8g4xvI?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Hải Sản", desc: "Fresh seafood restaurants", emoji: "🦐", image: "30. Seafood.jpg", link: "https://www.google.com/maps/@16.0691604,108.2226194,14z/data=!3m1!4b1!4m2!6m1!1s1i3OSLqxPJXgI81wXHmkdAzT2GcX4jg8?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Hải Sản Bình Dân", desc: "Cheaper local seafood spots", emoji: "💰", image: "31. Cheaper local seafood.jpg", link: "https://www.google.com/maps/@16.0727957,108.2225396,14z/data=!3m1!4b1!4m2!6m1!1s1d8N6w-FUMQ8Hv_d43oeBuT-T51C3p-c?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Lẩu", desc: "Hot pot - Thai / Beef / Fish", emoji: "♨️", image: "24. Lẩu thái  bò  cá.jpg", link: "https://www.google.com/maps/@16.0724962,108.2024676,14z/data=!3m1!4b1!4m2!6m1!1s1yetI0Ub2PHsGUWXXGzxHyU00cILkIA0?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            { name: "Vịt Quay", desc: "Vietnam-style roast duck", emoji: "🍖", image: "32. Vietnam-style roast duck with crispy skin.jpg", link: "https://www.google.com/maps/@16.0667336,108.2200099,15z/data=!3m1!4b1!4m2!6m1!1s1AjS5wHMXSMrsge76_N6YfXqY7pfuySM?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" },
+            /* CA PHE LINK (UPDATED IN PREVIOUS TURN) */
+            { name: "Cà Phê Đà Nẵng", desc: "Best local coffee shops and cafés", emoji: "☕", image: "Ca_Phe.jpg", link: "https://www.google.com/maps/@16.0749102,108.2253854,14z/data=!3m1!4b1!4m2!6m1!1s10JfXsRpsNkaJS1iNQjt4C6ygMUEFgw0?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" }
+        ];
+
+        // ============================================
+        // PRELOAD IMAGES
+        // ============================================
+        let imagesLoaded = 0;
+        let totalImages = 0;
+
+        foodItems.forEach(item => {
+            if (item.image) {
+                totalImages++;
+                item.imgObj = new Image();
+                item.imgObj.src = item.image;
+                item.imgObj.onload = function() {
+                    imagesLoaded++;
+                    // Redraw wheel when images load (if wheel is visible)
+                    if (document.getElementById('roulette-modal').classList.contains('active')) {
+                        drawWheel();
+                    }
+                }
+            }
+        });
+
+        // ============================================
+        // WHEEL CONFIGURATION
+        // ============================================
+        const canvas = document.getElementById('wheel-canvas');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spin-btn');
+        const wheelCenter = document.getElementById('wheel-center');
+        const resultCard = document.getElementById('result-card');
+        const resultEmoji = document.getElementById('result-emoji');
+        const resultName = document.getElementById('result-name');
+        const resultDesc = document.getElementById('result-desc');
+        const resultLink = document.getElementById('result-link');
+        
+        // Modal elements
+        const modal = document.getElementById('roulette-modal');
+        const openBtn = document.getElementById('open-wheel-btn');
+        const closeBtn = document.getElementById('close-wheel-btn');
+
+        let currentRotation = 0;
+        let isSpinning = false;
+        let currentResult = null;
+
+        const requestAnimFrame = (function() {
+            return window.requestAnimationFrame ||
+                   window.webkitRequestAnimationFrame ||
+                   window.mozRequestAnimationFrame ||
+                   function(callback) {
+                       window.setTimeout(callback, 1000 / 60);
+                   };
+        })();
+
+        const getTime = (function() {
+            if (window.performance && window.performance.now) {
+                return function() { return window.performance.now(); };
+            } else {
+                return function() { return Date.now(); };
+            }
+        })();
+
+        const colors = [
+            '#E84A27', '#F5A623', '#2D5A45', '#C75B39', '#A8B5A0',
+            '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+            '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9',
+            '#F8B500', '#FF6F61', '#6B5B95', '#88B04B', '#F7CAC9',
+            '#92A8D1', '#955251', '#B565A7', '#009B77', '#DD4124',
+            '#D65076', '#45B8AC', '#EFC050', '#5B5EA6', '#9B2335',
+            '#DFCFBE', '#55B4B0', '#E15D44', '#7FCDCD'
+        ];
+
+        function drawWheel() {
+            if (!canvas.parentElement) return;
+            var size = Math.min(canvas.parentElement.offsetWidth, canvas.parentElement.offsetHeight);
+            canvas.width = size * 2;
+            canvas.height = size * 2;
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+            ctx.scale(2, 2);
+
+            var centerX = size / 2;
+            var centerY = size / 2;
+            var radius = size / 2 - 10;
+            var segmentAngle = (2 * Math.PI) / foodItems.length;
+
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(currentRotation);
+            ctx.translate(-centerX, -centerY);
+
+            foodItems.forEach(function(item, index) {
+                var startAngle = index * segmentAngle - Math.PI / 2;
+                var endAngle = startAngle + segmentAngle;
+
+                // 1. Draw Segment
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                ctx.closePath();
+
+                var gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+                gradient.addColorStop(0, lightenColor(colors[index % colors.length], 20));
+                gradient.addColorStop(1, colors[index % colors.length]);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // 2. Draw Content (Image or Emoji)
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(startAngle + segmentAngle / 2);
+                
+                if (item.imgObj && item.imgObj.complete) {
+                    var imgSize = Math.max(24, radius / 7);
+                    ctx.translate(radius * 0.7, 0);
+                    ctx.rotate(Math.PI / 2);
+                    ctx.globalCompositeOperation = 'multiply';
+                    ctx.drawImage(item.imgObj, -imgSize/2, -imgSize/2, imgSize, imgSize);
+                } else {
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.font = Math.max(16, radius / 12) + 'px Arial';
+                    ctx.fillStyle = 'white';
+                    ctx.fillText(item.emoji, radius * 0.7, 0);
+                }
+                
+                ctx.restore();
+            });
+
+            // Outer ring
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            // Inner circle shadow
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 45, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function lightenColor(color, percent) {
+            var num = parseInt(color.replace('#', ''), 16);
+            var amt = Math.round(2.55 * percent);
+            var R = (num >> 16) + amt;
+            var G = (num >> 8 & 0x00FF) + amt;
+            var B = (num & 0x0000FF) + amt;
+            return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+                (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+                (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+        }
+
+        function spin() {
+            if (isSpinning) return;
+            isSpinning = true;
+            
+            spinBtn.disabled = true;
+            spinBtn.classList.add('spinning');
+            spinBtn.textContent = '🎰 Spinning...';
+            resultCard.classList.remove('show');
+
+            var randomSegment = Math.floor(Math.random() * foodItems.length);
+            var segmentAngle = (2 * Math.PI) / foodItems.length;
+            
+            // MATH FIX:
+            // Calculate base target angle (relative to 0) to align item at Top (-PI/2)
+            // Current center of item 'i' is at: -PI/2 + i*seg + seg/2 + R
+            // We want center to be at -PI/2.
+            // -PI/2 = -PI/2 + i*seg + seg/2 + R
+            // R = -(i*seg + seg/2)
+            
+            var itemCenterOffset = (randomSegment * segmentAngle) + (segmentAngle / 2);
+            var baseTarget = -itemCenterOffset;
+            
+            // We want target > currentRotation + 5 spins
+            var targetRotation = baseTarget;
+            while (targetRotation < currentRotation + (5 * 2 * Math.PI)) {
+                targetRotation += (2 * Math.PI);
+            }
+
+            var duration = 5000 + Math.random() * 2000;
+            var startTime = getTime();
+            var startRotation = currentRotation;
+
+            function animate() {
+                var currentTime = getTime();
+                var elapsed = currentTime - startTime;
+                var progress = Math.min(elapsed / duration, 1);
+                
+                var easeOut = 1 - Math.pow(1 - progress, 3);
+                
+                if (progress < 1) {
+                    currentRotation = startRotation + (targetRotation - startRotation) * easeOut;
+                    drawWheel();
+                    requestAnimFrame(animate);
+                } else {
+                    currentRotation = targetRotation; // Snap to exact angle
+                    drawWheel();
+                    isSpinning = false;
+                    spinBtn.disabled = false;
+                    spinBtn.classList.remove('spinning');
+                    spinBtn.textContent = '🎲 Spin Again!';
+                    showResult(randomSegment);
+                }
+            }
+            requestAnimFrame(animate);
+        }
+
+        function showResult(index) {
+            var item = foodItems[index];
+            currentResult = item;
+            
+            const existingImg = document.getElementById('result-custom-img');
+            if (existingImg) {
+                existingImg.remove();
+            }
+
+            if (item.image) {
+                resultEmoji.style.display = 'none';
+                
+                const img = document.createElement('img');
+                img.src = item.image;
+                img.className = 'result-custom-img';
+                img.id = 'result-custom-img';
+                
+                resultCard.insertBefore(img, resultEmoji);
+            } else {
+                resultEmoji.style.display = 'block';
+                resultEmoji.textContent = item.emoji;
+            }
+
+            resultName.textContent = item.name;
+            resultDesc.textContent = item.desc;
+            
+            resultLink.setAttribute('href', item.link);
+            resultLink.href = item.link;
+            
+            setTimeout(function() {
+                resultCard.classList.add('show');
+                createConfetti();
+                // Ensure card is visible within modal
+                resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+
+        function createConfetti() {
+            var confettiColors = ['#E84A27', '#F5A623', '#2D5A45', '#FF6B6B', '#4ECDC4'];
+            // Append confetti to modal content so it's visible on top of modal
+            var container = document.querySelector('.modal-content');
+            
+            for (var i = 0; i < 50; i++) {
+                (function(index) {
+                    setTimeout(function() {
+                        var confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        // Position relative to container
+                        confetti.style.left = Math.random() * 100 + '%';
+                        confetti.style.top = '-10px';
+                        confetti.style.position = 'absolute'; 
+                        confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                        confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                        confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                        confetti.style.webkitAnimationDuration = (Math.random() * 2 + 2) + 's';
+                        container.appendChild(confetti);
+                        setTimeout(function() { 
+                            if (confetti.parentNode) confetti.parentNode.removeChild(confetti);
+                        }, 4000);
+                    }, index * 30);
+                })(i);
+            }
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        
+        // Modal Logic
+        openBtn.addEventListener('click', function() {
+            modal.classList.add('active');
+            // Slight delay to ensure modal is rendered before calculating canvas size
+            setTimeout(function() {
+                drawWheel();
+            }, 100);
+        });
+
+        closeBtn.addEventListener('click', function() {
+            modal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Spin Logic
+        spinBtn.addEventListener('click', spin);
+        wheelCenter.addEventListener('click', spin);
+        canvas.addEventListener('click', spin);
+        
+        spinBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            spin();
+        }, { passive: false });
+        
+        wheelCenter.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            spin();
+        }, { passive: false });
+        
+        canvas.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            spin();
+        }, { passive: false });
+
+        // Resize Logic
+        var resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                // Only redraw if modal is open
+                if (modal.classList.contains('active') && !isSpinning) {
+                    drawWheel();
+                }
+            }, 100);
+        });
+
+        // Grid Result Links
+        resultLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (currentResult && currentResult.link) {
+                var newWindow = window.open(currentResult.link, '_blank');
+                if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                    window.location.href = currentResult.link;
+                }
+            }
+            return false;
+        });
+
+        resultLink.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            if (currentResult && currentResult.link) {
+                window.open(currentResult.link, '_blank');
+            }
+        }, { passive: false });
+
+        // Scroll Animations
+        if ('IntersectionObserver' in window) {
+            var observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.food-section').forEach(function(section) {
+                observer.observe(section);
+            });
+        } else {
+            document.querySelectorAll('.food-section').forEach(function(section) {
+                section.classList.add('visible');
+            });
+        }
+
+        // Parallax
+        window.addEventListener('scroll', function() {
+            var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+            var hero = document.querySelector('.hero-content');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = 'translateY(' + (scrolled * 0.3) + 'px)';
+                hero.style.opacity = 1 - (scrolled / window.innerHeight);
+            }
+        });
+
+        // Food Detail Modal Functions
+        function openFoodDetail(modalId) {
+            var modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeFoodDetail(modalId) {
+            var modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal on overlay click
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('food-detail-overlay')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                var activeModal = document.querySelector('.food-detail-overlay.active');
+                if (activeModal) {
+                    activeModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+    </script>
+
+    <!-- Cháo Detail Modal -->
+    <div id="chao-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('chao-detail-modal')">&times;</button>
+
+            <img src="1. Chao - photo.jpg" alt="Cháo" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Cháo</h2>
+                        <p class="food-detail-subtitle">Vietnamese Rice Porridge</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0569564,108.2160418,14z/data=!3m1!4b1!4m2!6m1!1s1PBQnkyw6-_PBMs1KMvwLxalH14JFdZE?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Cháo is the ultimate Vietnamese comfort food - a silky, slow-cooked rice porridge that warms the soul.
+                    In Da Nang, it's typically served with tender shredded pork or chicken, topped with an array of
+                    fresh herbs and crispy garnishes that add wonderful texture contrast.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="1. Cháo-sketch.jpg" alt="Cháo ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>The beauty of Cháo is in the toppings. Each component adds a layer of flavor and texture:</p>
+                        <ul>
+                            <li><strong>Fried shallots</strong> - crispy, aromatic crunch</li>
+                            <li><strong>Fresh cilantro & scallions</strong> - bright herbal notes</li>
+                            <li><strong>Black pepper</strong> - gentle warmth</li>
+                            <li><strong>Ginger fish sauce</strong> - the essential dipping sauce, tangy and savory</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Mix everything together, dip the meat in the ginger fish sauce, and enjoy this soul-warming dish any time of day.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phở Detail Modal -->
+    <div id="pho-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('pho-detail-modal')">&times;</button>
+
+            <img src="17. Phở - photo.jpg" alt="Phở" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Phở</h2>
+                        <p class="food-detail-subtitle">Rice Noodle Soup with Meats</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.062162,108.2219499,15z/data=!3m1!4b1!4m2!6m1!1s1YI43VaOymnAdgTUXzeFY_XmBUd2Xkm0?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Phở is Vietnam's most iconic dish - a fragrant, deeply savory soup built on hours of simmering beef bones,
+                    charred onions, and warm spices. The clear yet intensely flavorful broth is ladled over silky rice noodles
+                    and your choice of beef cuts, creating the perfect bowl of comfort.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="17. Phở - sketch.jpg" alt="Phở ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Customize your bowl with the fresh accompaniments served on the side:</p>
+                        <ul>
+                            <li><strong>Rare beef (Tái)</strong> - cooks in the hot broth as you eat</li>
+                            <li><strong>Brisket & Tendon</strong> - slow-cooked, melt-in-your-mouth textures</li>
+                            <li><strong>Herbs & Lime (Rau Sống)</strong> - Thai basil, bean sprouts, cilantro, and fresh lime</li>
+                            <li><strong>Dipping sauces</strong> - hoisin and sriracha for extra depth and heat</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Squeeze in lime, tear in herbs, add sauces to taste, and slurp away. Best enjoyed hot and steaming!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bánh Mì Heo Quay Detail Modal -->
+    <div id="banhmi-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('banhmi-detail-modal')">&times;</button>
+
+            <img src="2. Bánh mì heo quay - photo.jpg" alt="Bánh Mì Heo Quay" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bánh Mì Heo Quay</h2>
+                        <p class="food-detail-subtitle">Crispy Roast Pork Sandwich</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0583239,108.2173675,15z/data=!3m1!4b1!4m2!6m1!1s1UQxKdPKMWMY3gumi-3IREH9l-8EgsIE?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bánh Mì Heo Quay is Da Nang's take on the famous Vietnamese sandwich, featuring crispy-skinned
+                    roast pork as the star ingredient. The crackling pork skin provides an irresistible crunch,
+                    while the tender meat delivers rich, savory flavors complemented by fresh vegetables and tangy pickles.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Sandwich</p>
+                    <img src="2. Bánh mì heo quay - sketch.jpg" alt="Bánh Mì ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>The perfect bánh mì is all about balance and texture:</p>
+                        <ul>
+                            <li><strong>Crispy baguette</strong> - light and airy inside with a crackly crust</li>
+                            <li><strong>Heo quay (roast pork)</strong> - crackling skin with juicy, flavorful meat</li>
+                            <li><strong>Đồ chua (pickled vegetables)</strong> - carrots and daikon for tangy freshness</li>
+                            <li><strong>Fresh herbs</strong> - cilantro, cucumber, and chili for brightness</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Ask for extra chili if you like heat. Best enjoyed immediately while the bread is still crispy!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mì Quảng Detail Modal -->
+    <div id="miquang-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('miquang-detail-modal')">&times;</button>
+
+            <img src="3. Mì Quảng - photo.jpg" alt="Mì Quảng" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Mì Quảng</h2>
+                        <p class="food-detail-subtitle">Quảng Nam Turmeric Noodles</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0603566,108.1720592,13z/data=!3m1!4b1!4m2!6m1!1s1dRkfvzw4hhmCpN7jLEKhiVpTKZNL1uE?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Mì Quảng is the signature dish of Quảng Nam province and Da Nang's most beloved local specialty.
+                    Unlike soupy noodle dishes, Mì Quảng features wide, flat rice noodles tinted golden with turmeric,
+                    served with just a small amount of rich, intensely flavored broth and an abundance of toppings.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="3. Mì Quảng - sketch.jpg" alt="Mì Quảng ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Mì Quảng is meant to be mixed and customized:</p>
+                        <ul>
+                            <li><strong>Protein options</strong> - chicken, pork, shrimp, or all three combined</li>
+                            <li><strong>Bánh tráng (rice crackers)</strong> - crush and mix in for crunch</li>
+                            <li><strong>Fresh herbs</strong> - banana blossom, lettuce, basil, and mint</li>
+                            <li><strong>Roasted peanuts</strong> - essential topping for nutty richness</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Mix everything together thoroughly, crush the rice crackers on top, and squeeze in some lime. The dish should be moist but not swimming in broth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bánh Xèo Detail Modal -->
+    <div id="banhxeo-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('banhxeo-detail-modal')">&times;</button>
+
+            <img src="4. Bánh xèo - photo.jpg" alt="Bánh Xèo" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bánh Xèo</h2>
+                        <p class="food-detail-subtitle">Sizzling Crispy Rice Pancakes</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0567357,108.2143488,14z/data=!3m1!4b1!4m2!6m1!1s1wsNrzPwwHL9Ys8L4mqjsIeICzI1i-Os?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bánh Xèo, named for the sizzling "xèo" sound the batter makes when it hits the hot pan,
+                    is a crispy Vietnamese crepe filled with shrimp, pork, and bean sprouts. The Central Vietnamese
+                    version served in Da Nang is smaller and crispier than its Southern counterpart, with a beautiful golden color from turmeric.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="4. Bánh xèo - sketch.jpg" alt="Bánh Xèo ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Eating bánh xèo is a hands-on, interactive experience:</p>
+                        <ul>
+                            <li><strong>Rice paper wraps</strong> - tear off a piece of pancake and wrap it</li>
+                            <li><strong>Fresh greens</strong> - add lettuce, perilla, and mustard leaves</li>
+                            <li><strong>Mắm nêm</strong> - the fermented anchovy dipping sauce is essential</li>
+                            <li><strong>Green banana & starfruit</strong> - for tartness and texture</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Wrap a piece of crispy pancake with herbs in rice paper, dip generously in the sauce, and enjoy the explosion of flavors and textures.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cao Lầu Detail Modal -->
+    <div id="caolau-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('caolau-detail-modal')">&times;</button>
+
+            <img src="5. Cao Lầu - photo.jpg" alt="Cao Lầu" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Cao Lầu</h2>
+                        <p class="food-detail-subtitle">Hội An Specialty Noodles</p>
+                    </div>
+                    <a href="https://google.com/maps/@16.0631523,108.2135578,14z/data=!4m2!6m1!1s1LMVtLaL1T8ILltNpyqWmvRqAflrRrIA?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Cao Lầu is a dish unique to Hội An that cannot be authentically replicated elsewhere. The chewy,
+                    slightly smoky noodles are traditionally made using water from the ancient Bá Lễ well and lye
+                    from Cù Lao Chàm Island's ash. Topped with sliced BBQ pork, crispy croutons, and fresh herbs,
+                    it's a true taste of history.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="5. Cao Lầu - sketch.jpg" alt="Cao Lầu ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Cao Lầu is served with minimal broth, focusing on the noodles themselves:</p>
+                        <ul>
+                            <li><strong>Thick chewy noodles</strong> - the unique star with a slightly firm texture</li>
+                            <li><strong>Char siu pork</strong> - tender slices of Chinese-style BBQ pork</li>
+                            <li><strong>Crispy croutons</strong> - fried noodle pieces for satisfying crunch</li>
+                            <li><strong>Fresh herbs & bean sprouts</strong> - for brightness and freshness</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Mix everything together and add chili sauce or lime to taste. The combination of textures - chewy, crispy, and fresh - is what makes this dish special.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nem Lụi Detail Modal -->
+    <div id="nemlui-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('nemlui-detail-modal')">&times;</button>
+
+            <img src="6. Nem lui - photo.jpg" alt="Nem Lụi" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Nem Lụi</h2>
+                        <p class="food-detail-subtitle">Grilled Pork Skewers</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0643197,108.2139717,14z/data=!3m1!4b1!4m2!6m1!1s1L3x5ySfqhJ2OvLhexiALwvNKOZv9edY?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Nem Lụi is a beloved Huế specialty that has become a street food favorite in Da Nang.
+                    These aromatic grilled pork skewers are made from seasoned minced pork wrapped around
+                    lemongrass stalks, then grilled over charcoal until caramelized and smoky. It's the ultimate
+                    DIY wrap-and-dip experience.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="6. Nem lui - sketch.jpg" alt="Nem Lụi ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Creating the perfect wrap is part of the fun:</p>
+                        <ul>
+                            <li><strong>Rice paper</strong> - soften briefly and use as your wrap</li>
+                            <li><strong>Slide the meat off</strong> - remove from the lemongrass skewer</li>
+                            <li><strong>Add fresh herbs</strong> - lettuce, perilla, mint, and star fruit</li>
+                            <li><strong>Peanut dipping sauce</strong> - the rich, savory-sweet sauce ties it together</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Roll it up tightly, dip generously in the peanut sauce, and enjoy. The lemongrass imparts a subtle citrusy aroma to the meat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Xôi Detail Modal -->
+    <div id="xoi-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('xoi-detail-modal')">&times;</button>
+
+            <img src="7. Xôi mặn  Xôi ngọt - photo.jpg" alt="Xôi" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Xôi Mặn / Xôi Ngọt</h2>
+                        <p class="food-detail-subtitle">Savory & Sweet Sticky Rice</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0820911,108.2123016,14z/data=!3m1!4b1!4m2!6m1!1s1329qokEsL99TdxLxfmuxAzR8_U-inKI?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Xôi is Vietnam's beloved sticky rice, served in both savory (mặn) and sweet (ngọt) variations.
+                    A popular breakfast food, savory xôi comes topped with shredded chicken, Chinese sausage,
+                    fried shallots, and pâté. Sweet versions feature coconut, mung bean paste, or colorful toppings.
+                    It's hearty, affordable, and deeply satisfying.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="7. Xôi mặn  Xôi ngọt - sketch.jpg" alt="Xôi ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Xôi is a versatile dish with many variations:</p>
+                        <ul>
+                            <li><strong>Xôi gà</strong> - with shredded chicken and fried shallots</li>
+                            <li><strong>Xôi xíu mại</strong> - topped with meatballs in tomato sauce</li>
+                            <li><strong>Xôi đậu xanh</strong> - sweet version with mung bean</li>
+                            <li><strong>Xôi lá cẩm</strong> - beautiful purple sticky rice from magenta plant</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Mix all the toppings together with the sticky rice. For savory versions, add soy sauce or chili sauce to taste. Best enjoyed warm for breakfast or as a filling snack.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bánh Bèo, Bánh Nậm, Bánh Bột Lọc Detail Modal -->
+    <div id="banhbeo-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('banhbeo-detail-modal')">&times;</button>
+
+            <img src="8. Bánh Bèo, Bánh Nậm, & Bánh Bột Lọc - photo.jpg" alt="Bánh Bèo" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bánh Bèo, Nậm, Bột Lọc</h2>
+                        <p class="food-detail-subtitle">Huế-Style Rice Cakes Trio</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0639837,108.2180303,15z/data=!3m1!4b1!4m2!6m1!1s1WwDVnXLoWlPcXeXj_afyuwuUtSIMpfs?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    This trio of delicate Huế-style rice cakes represents the refined cuisine of Vietnam's former
+                    imperial capital. Bánh Bèo are tiny steamed rice cakes topped with dried shrimp. Bánh Nậm
+                    are flat rice flour dumplings wrapped in banana leaves. Bánh Bột Lọc are translucent tapioca
+                    dumplings filled with shrimp and pork. Together, they create a beautiful tasting experience.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="8. Bánh Bèo, Bánh Nậm, & Bánh Bột Lọc. - sketch.jpg" alt="Bánh Bèo trio sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Each cake type has its own charm:</p>
+                        <ul>
+                            <li><strong>Bánh Bèo</strong> - use the small spoon to scoop, top with scallion oil</li>
+                            <li><strong>Bánh Nậm</strong> - unwrap from banana leaf, enjoy the subtle pork flavor</li>
+                            <li><strong>Bánh Bột Lọc</strong> - chewy texture with savory shrimp-pork filling</li>
+                            <li><strong>Nước mắm pha</strong> - sweet fish sauce is the essential dipping sauce</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Drizzle or dip each piece in the sweet fish sauce. The contrast of textures - soft, chewy, and crispy toppings - is what makes this trio special.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bún Bò Huế Detail Modal -->
+    <div id="bunbohue-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('bunbohue-detail-modal')">&times;</button>
+
+            <img src="9. Bún bò Huế - photo.jpg" alt="Bún Bò Huế" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bún Bò Huế</h2>
+                        <p class="food-detail-subtitle">Spicy Beef Noodle Soup from Huế</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0664352,108.1893795,14z/data=!3m1!4b1!4m2!6m1!1s1gjWSvjZybkooIVLtBBqO1UriUUhvl-Y?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bún Bò Huế is considered by many Vietnamese to be superior to Phở - a bold claim backed by
+                    its complex, fiery broth. Originating from Huế, this soup features thick round rice noodles
+                    in a spicy, lemongrass-infused beef broth with a distinctive red hue from annatto oil.
+                    It's hearty, aromatic, and satisfyingly spicy.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="9. Bún bò Huế. - sketch.jpg" alt="Bún Bò Huế ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>This soup is all about bold, complex flavors:</p>
+                        <ul>
+                            <li><strong>Beef shank & brisket</strong> - tender, slow-cooked meat</li>
+                            <li><strong>Chả (pork roll)</strong> - adds variety and mild flavor</li>
+                            <li><strong>Mắm ruốc</strong> - fermented shrimp paste for umami depth</li>
+                            <li><strong>Fresh vegetables</strong> - banana blossom, herbs, lime, and chili</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Add a spoonful of shrimp paste to intensify the flavor, squeeze in lime, and add as much chili as you dare. The heat level is traditionally quite spicy!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bún Chả Cá Detail Modal -->
+    <div id="bunchaca-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('bunchaca-detail-modal')">&times;</button>
+
+            <img src="10. Bún chả cá - photo.jpg" alt="Bún Chả Cá" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bún Chả Cá</h2>
+                        <p class="food-detail-subtitle">Fish Cake Noodle Soup</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0521804,108.2192923,14z/data=!3m1!4b1!4m2!6m1!1s1culJftF9Dnpo6fKvZGktvI8NWtamA1A?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bún Chả Cá is Da Nang's signature dish - a local specialty you won't easily find elsewhere.
+                    This comforting noodle soup features handmade fish cakes in a light, sweet broth made from
+                    fish bones and tomatoes. The fish cakes come in two varieties: fried golden (chả chiên)
+                    and steamed white (chả hấp), each with distinct textures.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="10. Bún chả cá - sketch.jpg" alt="Bún Chả Cá ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>A beloved local breakfast, this soup is light yet satisfying:</p>
+                        <ul>
+                            <li><strong>Chả chiên</strong> - golden fried fish cakes with crispy edges</li>
+                            <li><strong>Chả hấp</strong> - soft steamed fish cakes, more delicate</li>
+                            <li><strong>Fresh herbs</strong> - add lettuce, mint, and perilla</li>
+                            <li><strong>Mắm ớt</strong> - chili fish sauce for extra kick</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">The broth is intentionally mild to let the fish cakes shine. Add herbs and chili sauce to your preference. Best enjoyed in the morning like the locals!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bún Chả Detail Modal -->
+    <div id="buncha-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('buncha-detail-modal')">&times;</button>
+
+            <img src="11. Bún chả - photo.jpg" alt="Bún Chả" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bún Chả</h2>
+                        <p class="food-detail-subtitle">Grilled Pork with Rice Noodles</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.060527,108.2182449,14z/data=!3m1!4b1!4m2!6m1!1s1ikIDjqx6-jCYZAG0Hfd6sAp_p4zYAws?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bún Chả is a Hanoi classic that's become popular throughout Vietnam. The dish features
+                    charcoal-grilled pork patties and caramelized pork belly slices served alongside cool
+                    rice vermicelli noodles and a bowl of sweet-savory dipping sauce. Made famous worldwide
+                    when Obama and Bourdain shared it in Hanoi.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="11. Bún chả - sketch.jpg" alt="Bún Chả ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Bún chả is an interactive, dip-as-you-go experience:</p>
+                        <ul>
+                            <li><strong>Chả viên</strong> - seasoned grilled pork patties</li>
+                            <li><strong>Thịt nướng</strong> - caramelized sliced pork belly</li>
+                            <li><strong>Nước chấm</strong> - sweet-sour fish sauce with pickled papaya</li>
+                            <li><strong>Fresh herbs</strong> - lettuce, perilla, mint to wrap or add</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Dip noodles and meat into the sauce bowl together, adding herbs as you go. The sauce has a perfect balance of sweet, sour, and savory. Add chili for heat!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hủ Tiếu Nam Vang Detail Modal -->
+    <div id="hutieu-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('hutieu-detail-modal')">&times;</button>
+
+            <img src="12. Hủ tiếu Nam Vang - photo.jpg" alt="Hủ Tiếu Nam Vang" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Hủ Tiếu Nam Vang</h2>
+                        <p class="food-detail-subtitle">Phnom Penh Style Noodle Soup</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0577469,108.2194737,15z/data=!3m1!4b1!4m2!6m1!1s1nSx8juGktIZ5cc0W8LFZ0oxcCbGW3CU?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Hủ Tiếu Nam Vang (Phnom Penh Noodle Soup) is a Vietnamese-Cambodian fusion dish brought
+                    by ethnic Chinese from Cambodia. This clear, sweet pork bone broth is lighter than other
+                    Vietnamese noodle soups, served with thin rice noodles and an impressive variety of
+                    toppings including pork, shrimp, quail eggs, and crispy garlic.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="12. Hủ tiếu Nam Vang - sketch.jpg" alt="Hủ Tiếu ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>This soup offers incredible variety in every bowl:</p>
+                        <ul>
+                            <li><strong>Pork & organ meats</strong> - sliced pork, liver, and ground pork</li>
+                            <li><strong>Shrimp & quail eggs</strong> - adds seafood sweetness and richness</li>
+                            <li><strong>Crispy fried garlic</strong> - aromatic crunch on top</li>
+                            <li><strong>Chinese celery & scallions</strong> - fresh herbal notes</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">You can order it "khô" (dry, without broth) for a different experience. Add hoisin, chili sauce, and lime to adjust flavors to your liking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bún Mắm Detail Modal -->
+    <div id="bunmam-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('bunmam-detail-modal')">&times;</button>
+
+            <img src="13. Bún mắm - photo.jpg" alt="Bún Mắm" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bún Mắm</h2>
+                        <p class="food-detail-subtitle">Fermented Fish Noodle Soup</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0583111,108.2156565,15z/data=!3m1!4b1!4m2!6m1!1s1EqzK8tLk9bIKuPKi26x-7kTHV3pEn3I?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bún Mắm is a bold, intensely flavored noodle soup from the Mekong Delta. The broth is
+                    built on fermented fish (mắm), giving it a pungent, deeply savory umami character that's
+                    not for the faint of heart. Loaded with seafood, pork, and eggplant, it's considered one
+                    of Vietnam's most complex and rewarding soups.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="13. Bún mắm - sketch.jpg" alt="Bún Mắm ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>This is Vietnamese umami at its most intense:</p>
+                        <ul>
+                            <li><strong>Mixed seafood</strong> - shrimp, squid, and fish pieces</li>
+                            <li><strong>Roasted pork</strong> - adds richness and contrast</li>
+                            <li><strong>Eggplant</strong> - absorbs the flavorful broth beautifully</li>
+                            <li><strong>Fresh vegetables</strong> - water spinach, bean sprouts, herbs</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">The fermented fish smell mellows as you eat. Squeeze in lime and add chili. If you love funky, umami-rich flavors, this will become a favorite!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bò Né Detail Modal -->
+    <div id="bone-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('bone-detail-modal')">&times;</button>
+
+            <img src="14. Bò né - photo.jpg" alt="Bò Né" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bò Né</h2>
+                        <p class="food-detail-subtitle">Sizzling Beef on Hot Plate</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0623892,108.2190811,15z/data=!3m1!4b1!4m2!6m1!1s1Ky_pL4rVk4u_3sKNieX_qhgRzgQpuYA?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bò Né, meaning "dodging beef" (because you dodge the splattering oil!), is Vietnam's
+                    answer to a Western steak breakfast. A sizzling hot cast iron plate arrives at your table
+                    with beef steak, sunny-side-up eggs, pâté, and crusty bread. It's theatrical, delicious,
+                    and perfect for a hearty morning meal.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="14. Bò né - sketch.jpg" alt="Bò Né ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Be ready when the sizzling plate arrives:</p>
+                        <ul>
+                            <li><strong>Beef steak</strong> - typically thin-sliced and cooked medium-well</li>
+                            <li><strong>Fried eggs</strong> - runny yolks to mix with everything</li>
+                            <li><strong>Pâté & butter</strong> - spread on the crusty French bread</li>
+                            <li><strong>Maggi sauce</strong> - the essential seasoning, similar to soy sauce</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Lean back when the plate arrives - it splatters! Cut the beef, break the egg yolk over it, add Maggi sauce, and eat with bread. The sizzle keeps everything hot.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cháo Vịt Detail Modal -->
+    <div id="chaovit-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('chaovit-detail-modal')">&times;</button>
+
+            <img src="15. Cháo Vịt - photo.jpg" alt="Cháo Vịt" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Cháo Vịt</h2>
+                        <p class="food-detail-subtitle">Duck Rice Porridge</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0617965,108.1902114,14z/data=!3m1!4b1!4m2!6m1!1s1ztiKO38LP4tVnGVefAqSde-V8xKPA_s?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Cháo Vịt elevates the humble rice porridge with rich, gamey duck flavor. The congee is
+                    cooked in duck broth until silky smooth, served with tender shredded duck meat, blood
+                    pudding (for the adventurous), and aromatic toppings. It's a comforting, protein-rich
+                    variation of the classic cháo that's particularly popular for dinner.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="15. Cháo Vịt - sketch.jpg" alt="Cháo Vịt ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Duck porridge offers richer, more complex flavors than chicken:</p>
+                        <ul>
+                            <li><strong>Shredded duck meat</strong> - tender, slightly gamey, full of flavor</li>
+                            <li><strong>Tiết canh (optional)</strong> - cooked duck blood, an acquired taste</li>
+                            <li><strong>Crispy shallots & herbs</strong> - coriander, scallions, pepper</li>
+                            <li><strong>Ginger fish sauce</strong> - for dipping the meat</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Stir in the toppings, season with pepper and fish sauce. The duck fat in the porridge gives it a luxurious richness. Often paired with bánh quẩy (fried dough sticks).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bánh Tráng Cuốn Thịt Heo Detail Modal -->
+    <div id="banhtrangcuon-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('banhtrangcuon-detail-modal')">&times;</button>
+
+            <img src="16. Bánh Tráng Cuốn Thịt Heo - photo.jpg" alt="Bánh Tráng Cuốn Thịt Heo" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bánh Tráng Cuốn Thịt Heo</h2>
+                        <p class="food-detail-subtitle">Rice Paper Rolls with Pork</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0484117,108.2164372,15z/data=!3m1!4b1!4m2!6m1!1s1CRu3wsqOaBMLqz4_uJUMN7-RB8g4xvI?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bánh Tráng Cuốn Thịt Heo is Da Nang's signature DIY dish - a fun, interactive meal where
+                    you wrap thinly sliced boiled pork and herbs in rice paper. The star is the mắm nêm
+                    (fermented anchovy sauce), a pungent, flavorful dipping sauce that locals consider
+                    essential. It's a social, hands-on eating experience.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Table</p>
+                    <img src="16. Bánh Tráng Cuốn Thịt Heo - sketch.jpg" alt="Bánh Tráng Cuốn ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Building the perfect roll is an art:</p>
+                        <ul>
+                            <li><strong>Rice paper</strong> - dip briefly in water to soften, lay flat</li>
+                            <li><strong>Thịt heo (pork belly)</strong> - thin slices of tender boiled pork</li>
+                            <li><strong>Fresh herbs & vegetables</strong> - lettuce, perilla, cucumber, green banana</li>
+                            <li><strong>Mắm nêm</strong> - the funky fermented fish sauce is non-negotiable</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Layer ingredients on the rice paper, roll tightly, and dip generously in mắm nêm. The sauce is pungent but addictive - it makes the dish!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cơm Gà Tam Kỳ / Hội An Detail Modal -->
+    <div id="comgatamky-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('comgatamky-detail-modal')">&times;</button>
+
+            <img src="18. Cơm gà Tam Kỳ  Hội An - photo.jpg" alt="Cơm Gà Tam Kỳ" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Cơm Gà Tam Kỳ / Hội An</h2>
+                        <p class="food-detail-subtitle">Turmeric Chicken Rice</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0674244,108.2172758,14z/data=!3m1!4b1!4m2!6m1!1s1C9Hy61pCtq4rhNS7l91tVmpL1gPhC-A?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Cơm Gà Tam Kỳ is a regional specialty from Quảng Nam province, featuring golden turmeric-infused
+                    rice topped with hand-shredded free-range chicken. Unlike regular chicken rice, this version
+                    uses local chicken with firmer texture and more flavor, served with a side of chicken soup,
+                    herbs, and a unique dipping sauce.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="18. Cơm gà Tam Kỳ Hội An - sketch.jpg" alt="Cơm Gà Tam Kỳ ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>This regional specialty has distinct characteristics:</p>
+                        <ul>
+                            <li><strong>Turmeric rice</strong> - golden, fragrant, cooked in chicken broth</li>
+                            <li><strong>Shredded chicken</strong> - hand-torn, from local free-range birds</li>
+                            <li><strong>Rau răm & onions</strong> - Vietnamese coriander and pickled onions</li>
+                            <li><strong>Special dipping sauce</strong> - often ginger or chili-based</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Mix the chicken with rice, add herbs, and enjoy with the dipping sauce. Sip the accompanying soup between bites. The Hội An version is especially famous!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cơm Gà Detail Modal -->
+    <div id="comga-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('comga-detail-modal')">&times;</button>
+
+            <img src="19. Cơm gà - photo.jpg" alt="Cơm Gà" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Cơm Gà</h2>
+                        <p class="food-detail-subtitle">Classic Chicken Rice</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.066039,108.2175242,15z/data=!3m1!4b1!4m2!6m1!1s1HLTq4OEjcEgaOrMYU8Ll7honO4CtVvM?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Cơm Gà is the Vietnamese take on Hainanese chicken rice, featuring poached or steamed
+                    chicken with silky skin served over fragrant rice cooked in chicken broth. Simple yet
+                    satisfying, it's elevated by the accompaniments: a vibrant chili-garlic sauce, ginger
+                    scallion oil, and a clear soup on the side.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="19. Cơm gà - sketch.jpg" alt="Cơm Gà ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>The sauces make all the difference:</p>
+                        <ul>
+                            <li><strong>Poached chicken</strong> - silky skin, tender meat, served room temperature</li>
+                            <li><strong>Chicken rice</strong> - cooked in broth with garlic and ginger</li>
+                            <li><strong>Chili-garlic sauce</strong> - spicy, tangy, essential for dipping</li>
+                            <li><strong>Ginger scallion oil</strong> - aromatic, savory drizzle</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Dip chicken in the chili sauce, drizzle ginger oil over rice. The simplicity highlights the quality of the chicken. Sip the soup between bites to cleanse the palate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cơm Tấm Detail Modal -->
+    <div id="comtam-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('comtam-detail-modal')">&times;</button>
+
+            <img src="20. Cơm tấm - photo.jpg" alt="Cơm Tấm" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Cơm Tấm</h2>
+                        <p class="food-detail-subtitle">Broken Rice with Grilled Pork</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0480729,108.2146129,14z/data=!3m1!4b1!4m2!6m1!1s1LlkmqqY8hFOp_uSEwoExUjZWr1QQmRI?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Cơm Tấm, originating from Saigon, has become a beloved dish throughout Vietnam. "Broken rice"
+                    refers to fractured rice grains that were once considered inferior but are now prized for
+                    their unique texture. Topped with a caramelized grilled pork chop, fried egg, and
+                    accompaniments, it's a complete, satisfying meal.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="20. Cơm tấm - sketch.jpg" alt="Cơm Tấm ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>A complete plate of cơm tấm typically includes:</p>
+                        <ul>
+                            <li><strong>Sườn nướng</strong> - caramelized grilled pork chop, slightly sweet</li>
+                            <li><strong>Bì</strong> - shredded pork skin with roasted rice powder</li>
+                            <li><strong>Chả trứng</strong> - steamed egg meatloaf</li>
+                            <li><strong>Mỡ hành</strong> - scallion oil to drizzle over rice</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Pour the sweet fish sauce (nước mắm) generously over everything. Mix it all together - the sauce, the pork, the egg - with the broken rice. Add pickled vegetables for crunch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Xôi Gà Xé Detail Modal -->
+    <div id="xoigaxe-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('xoigaxe-detail-modal')">&times;</button>
+
+            <img src="21. Xôi gà xé - photo.jpg" alt="Xôi Gà Xé" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Xôi Gà Xé</h2>
+                        <p class="food-detail-subtitle">Sticky Rice with Shredded Chicken</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0631523,108.2135578,14z/data=!3m1!4b1!4m2!6m1!1s1s9VvdmUhBT3p-glUys86mgFZSdxC0Cs?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Xôi Gà Xé is a premium version of Vietnamese sticky rice, featuring hand-shredded chicken
+                    as the main topping. The glutinous rice is steamed until perfectly chewy, then topped with
+                    tender chicken, crispy fried shallots, and drizzled with fragrant chicken fat. It's hearty,
+                    comforting, and particularly popular for breakfast or late-night snacks.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="21. Xôi gà xé - sketch.jpg" alt="Xôi Gà Xé ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>This premium sticky rice dish is all about the toppings:</p>
+                        <ul>
+                            <li><strong>Gà xé (shredded chicken)</strong> - hand-torn for better texture</li>
+                            <li><strong>Hành phi</strong> - golden fried shallots for aromatic crunch</li>
+                            <li><strong>Mỡ gà (chicken fat)</strong> - drizzled for richness</li>
+                            <li><strong>Rau răm</strong> - Vietnamese coriander for freshness</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Mix everything together with the sticky rice. Add soy sauce or chili sauce if desired. The combination of chewy rice, tender chicken, and crispy shallots is deeply satisfying.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bánh Tráng Kẹp A Ri Detail Modal -->
+    <div id="banhtrangkep-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('banhtrangkep-detail-modal')">&times;</button>
+
+            <img src="22. Bánh tráng kẹp A Ri - photo.jpg" alt="Bánh Tráng Kẹp" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bánh Tráng Kẹp A Ri</h2>
+                        <p class="food-detail-subtitle">Grilled Rice Paper Pizza</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0569737,108.2177782,15z/data=!3m1!4b1!4m2!6m1!1s1rqokxHRw5IKA_6merhsQXsoS6oOo45o?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bánh Tráng Kẹp, nicknamed "Vietnamese pizza," is a beloved Da Nang street food. A round
+                    rice paper is grilled over charcoal, topped with quail egg, dried beef, scallions, and
+                    chili sauce, then folded and pressed. Named after A Ri - a famous vendor - this crispy,
+                    savory snack is perfect for evening street food adventures.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Fold</p>
+                    <img src="22. Bánh tráng kẹp A Ri - sketch.jpg" alt="Bánh Tráng Kẹp ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Watch the vendor prepare this theatrical snack:</p>
+                        <ul>
+                            <li><strong>Rice paper</strong> - crisped over charcoal until crackling</li>
+                            <li><strong>Quail egg</strong> - cracked and spread on the hot paper</li>
+                            <li><strong>Khô bò (dried beef)</strong> - chewy, savory shredded beef</li>
+                            <li><strong>Tương ớt</strong> - chili sauce and mayonnaise drizzled on top</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Eat it immediately while hot and crispy! The contrast of textures - crispy paper, chewy beef, soft egg - is addictive. A must-try Da Nang street food experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cơm Niêu Detail Modal -->
+    <div id="comnieu-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('comnieu-detail-modal')">&times;</button>
+
+            <img src="23. Cơm niêu cá kho thịt kho trứng - photo.jpg" alt="Cơm Niêu" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Cơm Niêu</h2>
+                        <p class="food-detail-subtitle">Clay Pot Rice with Braised Dishes</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0671421,108.2140969,14z/data=!3m1!4b1!4m2!6m1!1s1vFW0oamLH92lWGRyTvreIl6-9Ne1DmA?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Cơm Niêu is rice cooked the traditional way - in a clay pot over fire, creating a prized
+                    crispy bottom layer called "cháy." Served with homestyle braised dishes like cá kho
+                    (caramelized fish) or thịt kho trứng (braised pork with egg), it represents Vietnamese
+                    home cooking at its most comforting and nostalgic.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Table</p>
+                    <img src="23. Cơm niêu cá kho thịt kho trứng - sketch.jpg" alt="Cơm Niêu ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Clay pot rice is comfort food with variety:</p>
+                        <ul>
+                            <li><strong>Cơm cháy</strong> - the crispy rice bottom, a prized delicacy</li>
+                            <li><strong>Cá kho tộ</strong> - fish braised in caramel sauce, sweet-savory</li>
+                            <li><strong>Thịt kho trứng</strong> - pork belly braised with hard-boiled eggs</li>
+                            <li><strong>Canh rau</strong> - vegetable soup to balance the rich dishes</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Scrape up the crispy rice from the pot bottom - it's the best part! Pour the braising sauce over your rice. Alternate between rich dishes and the light soup.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lẩu Detail Modal -->
+    <div id="lau-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('lau-detail-modal')">&times;</button>
+
+            <img src="24. Lẩu thái  bò  cá - photo.jpg" alt="Lẩu" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Lẩu Thái / Bò / Cá</h2>
+                        <p class="food-detail-subtitle">Vietnamese Hot Pot</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0724962,108.2024676,14z/data=!3m1!4b1!4m2!6m1!1s1yetI0Ub2PHsGUWXXGzxHyU00cILkIA0?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Lẩu (hot pot) is Vietnam's favorite group dining experience - a bubbling pot of flavorful
+                    broth where you cook your own ingredients at the table. Popular styles include Lẩu Thái
+                    (spicy-sour Thai style), Lẩu Bò (beef), and Lẩu Cá (fish). It's social, interactive,
+                    and perfect for sharing with friends and family.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Table</p>
+                    <img src="24. Lẩu thái  bò  cá - sketch.jpg" alt="Lẩu ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Hot pot is a communal, cook-at-your-table experience:</p>
+                        <ul>
+                            <li><strong>Proteins</strong> - thinly sliced beef, seafood, fish balls, tofu</li>
+                            <li><strong>Vegetables</strong> - morning glory, mushrooms, leafy greens</li>
+                            <li><strong>Noodles</strong> - add rice noodles or instant noodles at the end</li>
+                            <li><strong>Dipping sauce</strong> - customize with satay, fish sauce, chili</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Cook ingredients briefly in the bubbling broth, dip in sauce, and enjoy. As the meal progresses, the broth becomes richer. Add noodles at the end to soak up all the flavors!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category 25: Bún Thịt Nướng Detail Modal -->
+    <div id="bunthitnuong-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('bunthitnuong-detail-modal')">&times;</button>
+
+            <img src="25. Bún thịt nướng - photo.jpg" alt="Bún Thịt Nướng" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bún Thịt Nướng</h2>
+                        <p class="food-detail-subtitle">Grilled Pork with Rice Vermicelli</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.058235,108.2144858,14z/data=!3m1!4b1!4m2!6m1!1s1TIJfqwbcskv4ZwLyPAqae67F7QNkVd4?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bún Thịt Nướng is a beloved Vietnamese noodle dish featuring charcoal-grilled marinated pork
+                    served over cool rice vermicelli with fresh vegetables and herbs. The contrast of warm,
+                    smoky meat against cool noodles and crunchy vegetables makes it a refreshing yet satisfying meal,
+                    especially popular during hot Da Nang summers.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="25. Bún thịt nướng - sketch.jpg" alt="Bún Thịt Nướng ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>This dish is all about mixing and balancing flavors:</p>
+                        <ul>
+                            <li><strong>Rice vermicelli</strong> - soft, cool white noodles as the base</li>
+                            <li><strong>Grilled pork</strong> - caramelized, smoky slices or chopped meat</li>
+                            <li><strong>Fresh vegetables</strong> - cucumber, pickled carrots, bean sprouts</li>
+                            <li><strong>Fresh herbs</strong> - mint, perilla, lettuce, cilantro</li>
+                            <li><strong>Nước chấm</strong> - sweet and tangy fish sauce dressing</li>
+                            <li><strong>Toppings</strong> - crispy shallots, crushed peanuts, chả giò (spring rolls)</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Pour the nước chấm generously over everything, then mix it all together before eating. Add chili for extra heat. The key is getting a bit of everything in each bite!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category 26: Bò Lá Lốt Detail Modal -->
+    <div id="bolalot-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('bolalot-detail-modal')">&times;</button>
+
+            <img src="26. Bò lá lốt - photo.jpg" alt="Bò Lá Lốt" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bò Lá Lốt</h2>
+                        <p class="food-detail-subtitle">Grilled Beef in Betel Leaves</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0620574,108.222275,15z/data=!3m1!4b1!4m2!6m1!1s1PJKER1oIWnxxI8u5-bd861Sdf-JTqOo?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bò Lá Lốt is a distinctive Vietnamese delicacy where seasoned ground beef is wrapped in
+                    aromatic wild betel leaves (lá lốt) and grilled over charcoal. The leaves impart a unique
+                    peppery, slightly numbing flavor that perfectly complements the savory beef. This dish
+                    originated in Southern Vietnam but has become a beloved specialty throughout the country.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="26. Bò lá lốt - sketch.jpg" alt="Bò Lá Lốt ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Bò lá lốt is typically eaten as part of a DIY wrap experience:</p>
+                        <ul>
+                            <li><strong>Beef rolls</strong> - grilled bundles with crispy caramelized edges</li>
+                            <li><strong>Rice paper</strong> - soft or dried bánh tráng for wrapping</li>
+                            <li><strong>Fresh greens</strong> - lettuce, perilla, mint, Vietnamese coriander</li>
+                            <li><strong>Pickled vegetables</strong> - carrot and daikon for crunch</li>
+                            <li><strong>Nước mắm pha</strong> - diluted fish sauce with garlic and chili</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Take a piece of rice paper, add herbs, a beef roll, and pickled veggies, then wrap it up and dip in the sauce. The combination of the aromatic betel leaf, savory beef, and fresh herbs is unforgettable!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category 27: Bún Riêu Detail Modal -->
+    <div id="bunrieu-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('bunrieu-detail-modal')">&times;</button>
+
+            <img src="27. Bún riêu - photo.jpg" alt="Bún Riêu" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bún Riêu</h2>
+                        <p class="food-detail-subtitle">Crab Tomato Noodle Soup</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0614358,108.2111967,14z/data=!3m1!4b1!4m2!6m1!1s1ds2ITia6B7eYb574CTma21dM_VDO-WY?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bún Riêu is a distinctively tangy Vietnamese soup made with a tomato-based broth
+                    and freshwater crab paste. The soup has a beautiful reddish-orange color from tomatoes
+                    and annatto oil, with fluffy crab-egg fritters floating on top. It's lighter than many
+                    other Vietnamese noodle soups and offers a unique sweet-sour flavor profile.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="27. Bún riêu - sketch.jpg" alt="Bún Riêu ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Bún riêu is served with lots of fresh accompaniments:</p>
+                        <ul>
+                            <li><strong>Tomato-crab broth</strong> - tangy, slightly sweet base</li>
+                            <li><strong>Riêu cua</strong> - fluffy crab and egg fritter pieces</li>
+                            <li><strong>Tofu</strong> - fried tofu puffs that soak up the broth</li>
+                            <li><strong>Congealed blood</strong> - optional traditional addition</li>
+                            <li><strong>Fresh herbs</strong> - water spinach, bean sprouts, shiso, banana flower</li>
+                            <li><strong>Mắm tôm</strong> - fermented shrimp paste for authentic flavor</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Add herbs generously to your bowl. The optional mắm tôm (shrimp paste) adds an intense umami depth - start with a small amount! Squeeze in lime and add chili to taste.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category 28: Bánh Canh Cá Lóc Detail Modal -->
+    <div id="banhcanhcaloc-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('banhcanhcaloc-detail-modal')">&times;</button>
+
+            <img src="28. Bánh Canh cá lóc - photo.jpg" alt="Bánh Canh Cá Lóc" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bánh Canh Cá Lóc</h2>
+                        <p class="food-detail-subtitle">Thick Noodle Soup with Snakehead Fish</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0628319,108.2147631,14z/data=!3m1!4b1!4m2!6m1!1s1_8duQllrBX6NlDpc-ESrEiWGSqKhEmw?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bánh Canh is a Vietnamese soup featuring thick, chewy tapioca or rice-tapioca noodles
+                    in a rich, slightly thickened broth. The Cá Lóc version uses snakehead fish, a prized
+                    freshwater fish in Vietnam known for its firm, sweet flesh. The noodles have a distinctive
+                    slippery texture that makes this dish uniquely satisfying.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's in the Bowl</p>
+                    <img src="28. Bánh Canh cá lóc - sketch.jpg" alt="Bánh Canh Cá Lóc ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Bánh canh is a hearty, comforting soup best enjoyed hot:</p>
+                        <ul>
+                            <li><strong>Thick noodles</strong> - chewy tapioca-based noodles</li>
+                            <li><strong>Snakehead fish</strong> - tender, boneless chunks</li>
+                            <li><strong>Rich broth</strong> - slightly viscous from the tapioca starch</li>
+                            <li><strong>Fish cake</strong> - sliced chả cá for extra protein</li>
+                            <li><strong>Aromatics</strong> - fried shallots, green onions, cilantro</li>
+                            <li><strong>Condiments</strong> - fish sauce, chili, lime</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">The thick noodles require chopsticks and a spoon to eat properly. Make sure to get some broth with each bite of noodle - the slightly sticky texture of the broth clings beautifully to the noodles!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category 29: Bánh Căn Detail Modal -->
+    <div id="banhcan-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('banhcan-detail-modal')">&times;</button>
+
+            <img src="29. Bánh Căn - photo.jpg" alt="Bánh Căn" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Bánh Căn</h2>
+                        <p class="food-detail-subtitle">Mini Rice Cakes with Toppings</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0535884,108.2120158,15z/data=!3m1!4b1!4m2!6m1!1s1ygYpPUW8zoWUilGTntqpLO_bKfSEpH0?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Bánh Căn are small, crispy-bottomed rice cakes cooked in special clay molds over charcoal.
+                    Originating from Central Vietnam (particularly Ninh Thuận and Phan Rang), these bite-sized
+                    treats are topped with various ingredients like quail eggs, shrimp, or green onions.
+                    They're served fresh off the grill with fish sauce dip and are a beloved street food snack.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="29. Bánh Căn - sketch.jpg" alt="Bánh Căn ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Bánh căn is served hot from the clay molds in batches:</p>
+                        <ul>
+                            <li><strong>Rice cake base</strong> - crispy on bottom, soft on top</li>
+                            <li><strong>Toppings</strong> - quail egg, dried shrimp, green onion</li>
+                            <li><strong>Mỡ hành</strong> - green onion oil drizzled on top</li>
+                            <li><strong>Nước mắm pha</strong> - fish sauce dip with papaya or mango</li>
+                            <li><strong>Fresh vegetables</strong> - lettuce, herbs for wrapping</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Eat them fresh and hot! Dip each little cake in the fish sauce, or wrap in lettuce with herbs. They come out in batches, so you'll eat some while more are being made - that's part of the experience!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category 30: Seafood Detail Modal -->
+    <div id="seafood-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('seafood-detail-modal')">&times;</button>
+
+            <img src="30. Seafood - photo.jpg" alt="Seafood" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Hải Sản</h2>
+                        <p class="food-detail-subtitle">Fresh Seafood Da Nang Style</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0691604,108.2226194,14z/data=!3m1!4b1!4m2!6m1!1s1i3OSLqxPJXgI81wXHmkdAzT2GcX4jg8?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Da Nang's coastal location means incredible fresh seafood is everywhere. From beach-side
+                    restaurants to local markets, you'll find everything from grilled lobster to steamed clams.
+                    Vietnamese seafood preparation emphasizes freshness and simple preparations that let the
+                    natural flavors shine - with dipping sauces to add zest.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Table</p>
+                    <img src="30. Seafood - sketch.jpg" alt="Seafood ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Da Nang seafood restaurants let you pick from live tanks:</p>
+                        <ul>
+                            <li><strong>Tôm hùm</strong> - lobster, grilled with garlic butter or cheese</li>
+                            <li><strong>Cua</strong> - crab, steamed or stir-fried with tamarind</li>
+                            <li><strong>Nghêu/Sò</strong> - clams and mussels, steamed with lemongrass</li>
+                            <li><strong>Ốc</strong> - snails in various preparations</li>
+                            <li><strong>Cá</strong> - whole fish, grilled or steamed</li>
+                            <li><strong>Mực</strong> - squid, grilled or fried with salt and chili</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Point at what you want in the tanks and specify how you'd like it cooked. Prices are usually per kilogram. The muối tiêu chanh (salt, pepper, lime dip) and mắm gừng (fish sauce with ginger) are essential accompaniments!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category 31: Cheaper Local Seafood Detail Modal -->
+    <div id="localseafood-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('localseafood-detail-modal')">&times;</button>
+
+            <img src="31. Cheaper local seafood - photo.jpg" alt="Local Seafood" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Hải Sản Bình Dân</h2>
+                        <p class="food-detail-subtitle">Budget-Friendly Local Seafood</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0727957,108.2225396,14z/data=!3m1!4b1!4m2!6m1!1s1d8N6w-FUMQ8Hv_d43oeBuT-T51C3p-c?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    For authentic, affordable seafood experiences, head to the local neighborhood spots
+                    away from tourist beaches. These "quán ốc" (snail shops) and local seafood stalls
+                    offer the same fresh catches at fraction of the price. It's where Da Nang residents
+                    actually eat - plastic chairs, cold beer, and incredibly fresh seafood.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Table</p>
+                    <img src="31. Cheaper local seafood - sketch.jpg" alt="Local seafood ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Local seafood spots offer incredible value:</p>
+                        <ul>
+                            <li><strong>Ốc hương</strong> - sweet snails, steamed with lemongrass</li>
+                            <li><strong>Sò điệp</strong> - scallops grilled with onion oil and peanuts</li>
+                            <li><strong>Nghêu hấp</strong> - steamed clams with lime leaf</li>
+                            <li><strong>Mực nướng</strong> - grilled squid with chili salt</li>
+                            <li><strong>Chân gà</strong> - chicken feet (popular beer snack)</li>
+                            <li><strong>Bia</strong> - cold local beer (essential!)</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Order a variety of dishes to share - portions are small so you can try many things. Prices are per plate (đĩa) and are much lower than tourist areas. The vibe is casual - expect plastic stools and great people-watching!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category 32: Vịt Quay Detail Modal -->
+    <div id="vitquay-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('vitquay-detail-modal')">&times;</button>
+
+            <img src="32. Vietnam-style roast duck with crispy skin - photo.jpg" alt="Vịt Quay" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Vịt Quay</h2>
+                        <p class="food-detail-subtitle">Vietnamese Roast Duck with Crispy Skin</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0667336,108.2200099,15z/data=!3m1!4b1!4m2!6m1!1s1AjS5wHMXSMrsge76_N6YfXqY7pfuySM?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Vịt Quay is Vietnamese-style roast duck, known for its lacquered, crackling skin and
+                    juicy meat infused with five-spice and aromatics. Different from Chinese Peking duck,
+                    Vietnamese roast duck is typically served chopped with dipping sauce and fresh herbs.
+                    It's a popular dish for special occasions but available daily at specialty shops.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">What's on the Plate</p>
+                    <img src="32. Vietnam-style roast duck with crispy skin - sketch.jpg" alt="Vịt Quay ingredients sketch" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">How to Enjoy</h3>
+                    <div class="food-detail-details-text">
+                        <p>Roast duck is typically served as a main dish with accompaniments:</p>
+                        <ul>
+                            <li><strong>Chopped duck</strong> - crispy skin with tender meat on the bone</li>
+                            <li><strong>Mắm gừng</strong> - fish sauce with fresh ginger (essential!)</li>
+                            <li><strong>Fresh herbs</strong> - rau răm (Vietnamese coriander), mint</li>
+                            <li><strong>Pickles</strong> - pickled vegetables to cut the richness</li>
+                            <li><strong>Rice or bánh hỏi</strong> - served with steamed rice or rice vermicelli sheets</li>
+                            <li><strong>Duck broth</strong> - sometimes served as a soup on the side</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Make sure to get pieces with both crispy skin and meat. Dip in the mắm gừng - the ginger cuts through the duck fat perfectly. Many shops sell by weight (per 100g or half/whole duck).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Michelin Selected Detail Modal -->
+    <div id="michelin-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('michelin-detail-modal')">&times;</button>
+
+            <img src="michelin-selected - photo.jpg" alt="Michelin Selected Da Nang" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Michelin Selected</h2>
+                        <p class="food-detail-subtitle">Da Nang's Finest Dining Experiences</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0684492,108.2169202,14z/data=!3m1!4b1!4m2!6m1!1s1I8Yp71z3E0weyU8Nf5aDqJDFbN9LgVo?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Da Nang is home to 43 establishments recognized by the MICHELIN Guide Vietnam 2025 -
+                    a testament to the city's exceptional culinary scene. These aren't luxury fine-dining
+                    destinations, but rather restaurants celebrated for the authentic taste and quality of
+                    their food, from humble street food stalls to beloved local eateries. The Michelin
+                    Selected distinction recognizes consistent quality cooking - places where inspectors
+                    would happily eat again and again.
+                </p>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">Da Nang's Michelin Guide 2025</h3>
+                    <div class="food-detail-details-text">
+                        <p><strong>⭐ One Michelin Star</strong></p>
+                        <ul>
+                            <li><strong>La Maison 1888</strong> - French contemporary cuisine at InterContinental Danang Sun Peninsula Resort, helmed by legendary Chef Pierre Gagnaire</li>
+                        </ul>
+
+                        <p style="margin-top: 1rem;"><strong>🌿 Michelin Green Star</strong></p>
+                        <ul>
+                            <li><strong>Nén Danang</strong> - Vietnam's first Green Star recipient, recognized for sustainable gastronomy with creative Vietnamese tasting menus</li>
+                        </ul>
+
+                        <p style="margin-top: 1rem;"><strong>🍽️ Bib Gourmand (20 restaurants)</strong></p>
+                        <p>Exceptional food at moderate prices:</p>
+                        <ul>
+                            <li><strong>Noodle specialists</strong> - Bún Bò Huế Bà Thương (50+ years of spicy beef noodles), Bún Chả Cá 109, Bún Chả Cá Hờn, Bà Đông, Bún Bò Bà Rơi</li>
+                            <li><strong>Bánh Xèo masters</strong> - Bánh Xèo 76, Bánh Xèo Tôm Nhảy Cô Ba, Bánh Xèo Tôm Nhảy Năm Hiền</li>
+                            <li><strong>Vietnamese favorites</strong> - Mỳ Quảng Sứa Hồng Vân, Quê Xưa, Ăn Thôi, Thìa Gỗ, Ngọc Chi</li>
+                            <li><strong>Street food gems</strong> - Quán Nhân, Cô Chủ Nhỏ, Phú Hồng</li>
+                            <li><strong>Specialty cuisines</strong> - Bé Ni 2 (24/7 seafood), Shamballa (vegetarian), Indian Aroma, Rang</li>
+                        </ul>
+
+                        <p style="margin-top: 1rem;"><strong>✨ Michelin Selected (22 restaurants)</strong></p>
+                        <p>Quality cooking worth a stop:</p>
+                        <ul>
+                            <li><strong>Vietnamese</strong> - Bếp Cuốn, Bún Riêu Cua 39, MỘC Quán Seafood, My Hanh Seafood, Bé Mặn</li>
+                            <li><strong>International</strong> - Olivia's Prime (steakhouse), The Temptation, Le Comptoir (French)</li>
+                        </ul>
+
+                        <p style="margin-top: 1rem;">These restaurants represent the best of Da Nang's food culture - from generations-old family recipes to innovative contemporary cuisine. The Michelin recognition puts Da Nang firmly on the global culinary map, celebrating both its street food heritage and modern dining scene.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cà Phê Đà Nẵng Detail Modal -->
+    <div id="caphe-detail-modal" class="food-detail-overlay">
+        <div class="food-detail-card">
+            <button class="food-detail-close" onclick="closeFoodDetail('caphe-detail-modal')">&times;</button>
+
+            <img src="viet-caphe - photo.jpg" alt="Cà Phê" class="food-detail-photo">
+
+            <div class="food-detail-content">
+                <div class="food-detail-header">
+                    <div>
+                        <h2 class="food-detail-title">Cà Phê Đà Nẵng</h2>
+                        <p class="food-detail-subtitle">Vietnamese Coffee Culture</p>
+                    </div>
+                    <a href="https://www.google.com/maps/@16.0749102,108.2253854,14z/data=!3m1!4b1!4m2!6m1!1s10JfXsRpsNkaJS1iNQjt4C6ygMUEFgw0?entry=ttu&g_ep=EgoyMDI2MDExMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="food-detail-navigate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Navigate
+                    </a>
+                </div>
+
+                <p class="food-detail-overview">
+                    Vietnam is the world's second-largest coffee producer, and coffee culture runs deep.
+                    Vietnamese coffee is typically dark roasted robusta, brewed slowly through a metal
+                    phin filter, creating an intensely bold brew. Beyond the classic cà phê sữa đá (iced
+                    milk coffee), Vietnam has developed three unique specialty coffees that you must try -
+                    each with its own fascinating origin story.
+                </p>
+
+                <div class="food-detail-sketch-section">
+                    <p class="food-detail-sketch-label">Three Signature Styles</p>
+                    <img src="Ca_Phe.jpg" alt="Vietnamese coffee styles" class="food-detail-sketch">
+                </div>
+
+                <div class="food-detail-details">
+                    <h3 class="food-detail-details-title">Must-Try Coffee Styles</h3>
+                    <div class="food-detail-details-text">
+                        <p><strong>🧂 Cà Phê Muối (Salt Coffee)</strong></p>
+                        <p>Created in 2012 by Mr. Phong and Mrs. Hương in nearby Huế, salt coffee has become
+                        a Central Vietnam specialty and is wildly popular in Da Nang. A layer of whipped salted
+                        cream floats atop strong Vietnamese coffee. The science behind it: sodium ions naturally
+                        neutralize coffee's bitter compounds while enhancing its sweetness, making the drink
+                        remarkably smooth. The salt cuts through robusta's intensity in a way sugar never could.
+                        Don't stir right away - sip through the creamy layer first!</p>
+
+                        <p style="margin-top: 1rem;"><strong>🥚 Cà Phê Trứng (Egg Coffee)</strong></p>
+                        <p>Born in 1946 Hanoi during the Anti-French Resistance war when milk was scarce, bartender
+                        Nguyen Van Giang at the Sofitel Metropole Hotel invented this ingenious substitute.
+                        He whipped egg yolk with condensed milk until it became a rich, custard-like foam,
+                        then layered it over strong coffee. The result tastes like liquid tiramisu - sweet,
+                        creamy, and utterly decadent. The cup is traditionally served sitting in a bowl of
+                        hot water to keep it warm. His family's Café Giang still operates in Hanoi today.</p>
+
+                        <p style="margin-top: 1rem;"><strong>🥥 Cà Phê Dừa (Coconut Coffee)</strong></p>
+                        <p>Originating from the coastal city of Hai Phong, coconut coffee combines bold Vietnamese
+                        coffee with tropical creaminess. Coconut cream and condensed milk are blended with ice
+                        into a thick, frothy slush, then layered on top of chilled coffee. The result is refreshing,
+                        creamy, and perfect for Da Nang's hot weather. Some cafés blend everything together for
+                        a smoothie-like frappe. The rich coconut perfectly complements robusta's intensity.</p>
+
+                        <p style="margin-top: 1rem;">All three styles showcase Vietnamese creativity - transforming
+                        simple coffee into something extraordinary using local ingredients and ingenuity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
