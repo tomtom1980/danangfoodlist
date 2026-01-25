@@ -1,0 +1,1510 @@
+/**
+ * Da Nang Food Guide - Map Styles
+ * Styling for Mapbox map, markers, popups, and filters
+ */
+
+/* ============================================
+   MAP SECTION
+   ============================================ */
+.map-section {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.map-section-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.map-section-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--vermillion);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.map-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--charcoal);
+  font-weight: 600;
+}
+
+/* Map Container */
+.map-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: var(--cream);
+}
+
+/* Fullscreen map container styles */
+.map-container:fullscreen,
+.map-container:-webkit-full-screen,
+.map-container:-moz-full-screen,
+.map-container:-ms-fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#restaurant-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Map Loading State */
+.map-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--cream);
+  border-radius: 16px;
+  z-index: 5;
+}
+
+.map-loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--sage);
+  border-top-color: var(--vermillion);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.map-loading-text {
+  margin-top: 1rem;
+  color: var(--jade);
+  font-size: 0.9rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Map Error State */
+.map-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--terracotta);
+  text-align: center;
+  padding: 2rem;
+}
+
+.map-error svg {
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.map-error p {
+  font-size: 1rem;
+  max-width: 300px;
+}
+
+/* ============================================
+   FILTER PANEL
+   ============================================ */
+/* ============================================
+   MAP CONTROLS BAR (above map)
+   ============================================ */
+.map-controls-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.map-controls-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.map-filter-container {
+  position: relative;
+  z-index: 10;
+}
+
+/* ============================================
+   OPEN NOW TOGGLE BUTTON
+   ============================================ */
+.open-now-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--paper);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.open-now-toggle:hover {
+  background: var(--cream);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.open-now-icon {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.open-now-icon svg {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  transition: all 0.3s ease;
+}
+
+/* Default state: Show X (inactive) */
+.open-now-toggle .icon-check {
+  opacity: 0;
+  transform: scale(0.5) rotate(-45deg);
+  stroke: #22c55e;
+}
+
+.open-now-toggle .icon-x {
+  opacity: 1;
+  transform: scale(1);
+  stroke: #94a3b8;
+}
+
+/* Subtle pulse animation for active state */
+@keyframes open-now-pulse {
+  0%, 100% {
+    box-shadow:
+      0 4px 16px rgba(34, 197, 94, 0.3),
+      0 0 0 0 rgba(34, 197, 94, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 4px 20px rgba(34, 197, 94, 0.4),
+      0 0 0 4px rgba(34, 197, 94, 0.1);
+  }
+}
+
+/* Active state: Show checkmark */
+.open-now-toggle.active {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border-color: #22c55e;
+  color: #166534;
+  animation: open-now-pulse 2s ease-in-out infinite;
+}
+
+.open-now-toggle.active:hover {
+  box-shadow:
+    0 6px 24px rgba(34, 197, 94, 0.4),
+    0 0 0 6px rgba(34, 197, 94, 0.15);
+  animation: none;
+}
+
+.open-now-toggle.active .icon-check {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.open-now-toggle.active .icon-x {
+  opacity: 0;
+  transform: scale(0.5) rotate(45deg);
+}
+
+/* Inactive/disabled visual state */
+.open-now-toggle:not(.active) {
+  opacity: 0.85;
+}
+
+.open-now-toggle:not(.active):hover {
+  opacity: 1;
+}
+
+/* ============================================
+   TOP 3 PLACES TOGGLE BUTTON
+   ============================================ */
+.top-places-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--paper);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.top-places-toggle:hover {
+  background: var(--cream);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.top-places-icon {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-places-icon svg {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  transition: all 0.3s ease;
+}
+
+/* Default state: Show trophy (inactive) */
+.top-places-toggle .icon-check {
+  opacity: 0;
+  transform: scale(0.5) rotate(-45deg);
+  stroke: var(--golden);
+}
+
+.top-places-toggle .icon-trophy {
+  opacity: 1;
+  transform: scale(1);
+  stroke: #94a3b8;
+}
+
+/* Subtle pulse animation for active state */
+@keyframes top-places-pulse {
+  0%, 100% {
+    box-shadow:
+      0 4px 16px rgba(245, 166, 35, 0.3),
+      0 0 0 0 rgba(245, 166, 35, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 4px 20px rgba(245, 166, 35, 0.4),
+      0 0 0 4px rgba(245, 166, 35, 0.1);
+  }
+}
+
+/* Active state: Show checkmark */
+.top-places-toggle.active {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border-color: var(--golden);
+  color: #92400e;
+  animation: top-places-pulse 2s ease-in-out infinite;
+}
+
+.top-places-toggle.active:hover {
+  box-shadow:
+    0 6px 24px rgba(245, 166, 35, 0.4),
+    0 0 0 6px rgba(245, 166, 35, 0.15);
+  animation: none;
+}
+
+.top-places-toggle.active .icon-check {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.top-places-toggle.active .icon-trophy {
+  opacity: 0;
+  transform: scale(0.5) rotate(45deg);
+}
+
+/* Inactive/disabled visual state */
+.top-places-toggle:not(.active) {
+  opacity: 0.85;
+}
+
+.top-places-toggle:not(.active):hover {
+  opacity: 1;
+}
+
+/* ============================================
+   DISTANCE SLIDER
+   ============================================ */
+.distance-slider-container {
+  display: none; /* Hidden by default - shown when location available */
+  flex-direction: row;
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  gap: 16px;
+  width: 100%;
+}
+
+.distance-slider-container.visible {
+  display: flex;
+}
+
+.distance-slider-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--jade);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.distance-slider-label svg {
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.distance-slider-label #distance-value {
+  color: var(--vermillion);
+  font-weight: 700;
+  min-width: 65px;
+}
+
+/* Custom range slider styling - smooth and responsive */
+.distance-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 6px;
+  background: linear-gradient(to right, var(--vermillion), var(--golden), var(--sage));
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  touch-action: pan-x;
+  transition: height 0.15s ease;
+}
+
+.distance-slider:hover {
+  height: 8px;
+}
+
+.distance-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border: 2px solid var(--vermillion);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  touch-action: pan-x;
+}
+
+.distance-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  border-color: var(--golden);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.distance-slider::-webkit-slider-thumb:active {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(232, 74, 39, 0.4);
+}
+
+.distance-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: white;
+  border: 2px solid var(--vermillion);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.distance-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 10px;
+  color: var(--sage);
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.distance-ticks span {
+  text-align: center;
+}
+
+/* Filter Toggle Button */
+.map-filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--charcoal);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.map-filter-toggle:hover {
+  background: var(--cream);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.map-filter-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.map-filter-toggle .filter-count-badge {
+  background: var(--vermillion);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Filter Panel */
+.map-filter-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  background: var(--paper);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  min-width: 280px;
+  max-height: 520px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scaleY(0.95);
+  transform-origin: top center;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  pointer-events: none;
+}
+
+.map-filter-panel.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scaleY(1);
+  pointer-events: auto;
+}
+
+/* Filter Header */
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.filter-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--sage);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.filter-close-btn:hover {
+  color: var(--charcoal);
+}
+
+/* Quick Actions */
+.filter-quick-actions {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.filter-quick-btn {
+  flex: 1;
+  padding: 8px 12px;
+  background: var(--cream);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--jade);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-quick-btn:hover {
+  background: var(--jade);
+  color: white;
+  border-color: var(--jade);
+}
+
+/* Filter Divider */
+.filter-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 0 16px;
+}
+
+/* Filter Options List */
+.filter-options-list {
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sage) transparent;
+  /* Ensure content is painted even before scroll */
+  transform: translateZ(0);
+  -webkit-overflow-scrolling: touch;
+}
+
+.map-filter-panel.open .filter-options-list {
+  visibility: visible;
+  opacity: 1;
+}
+
+.filter-options-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.filter-options-list::-webkit-scrollbar-thumb {
+  background: var(--sage);
+  border-radius: 3px;
+}
+
+/* Filter Option */
+.filter-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  min-height: 44px;
+}
+
+.filter-option:hover {
+  background: var(--cream);
+}
+
+.filter-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  accent-color: var(--vermillion);
+  cursor: pointer;
+}
+
+.filter-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.filter-emoji {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.filter-category-img {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  margin-right: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.filter-name {
+  flex: 1;
+  font-size: 13px;
+  color: var(--charcoal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filter-count {
+  font-size: 11px;
+  color: var(--sage);
+  background: var(--cream);
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 8px;
+}
+
+/* Filter Status */
+.filter-status {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 12px;
+  color: var(--jade);
+  font-weight: 500;
+  background: var(--cream);
+}
+
+/* ============================================
+   POPUP STYLES - Beautiful Redesign
+   ============================================ */
+.mapboxgl-popup {
+  z-index: 100;
+}
+
+.mapboxgl-popup-content {
+  padding: 0 !important;
+  border-radius: 24px !important;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.07),
+    0 12px 24px rgba(0, 0, 0, 0.12),
+    0 24px 48px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: linear-gradient(180deg, var(--paper) 0%, var(--cream) 100%);
+}
+
+/* Styled close button */
+.mapboxgl-popup-close-button {
+  font-size: 18px;
+  color: white;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  right: 10px;
+  top: 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.mapboxgl-popup-close-button:hover {
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Popup tip/arrow styling */
+.mapboxgl-popup-tip {
+  border-top-color: var(--cream) !important;
+}
+
+/* Popup Content Container */
+.map-popup {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  max-width: 320px;
+  min-width: 280px;
+}
+
+/* Category color indicator - prominent curved header */
+.popup-category-bar {
+  height: 8px;
+  position: relative;
+}
+
+.popup-category-bar::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 24px;
+  background: inherit;
+  border-radius: 0 0 25px 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.popup-content {
+  padding: 24px 20px 20px;
+  position: relative;
+}
+
+/* Decorative corner accent */
+.popup-content::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at center, rgba(245, 166, 35, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Category badge - colorful pill */
+.popup-category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 25px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 14px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.3px;
+}
+
+.popup-category-badge .popup-emoji {
+  font-size: 14px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+.popup-category-badge .popup-category-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* Multiple categories container */
+.popup-categories-multi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.popup-categories-multi .popup-category-badge {
+  margin-bottom: 0;
+}
+
+/* Smaller badges for multi-category display */
+.popup-category-badge-small {
+  padding: 4px 10px;
+  font-size: 11px;
+  border-radius: 20px;
+}
+
+.popup-category-badge-small .popup-category-img {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+}
+
+.popup-category-badge-small .popup-emoji {
+  font-size: 12px;
+}
+
+/* Restaurant name - elegant typography */
+.popup-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin: 0 0 14px 0;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+/* Info section with subtle background */
+.popup-info {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.popup-district {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--jade);
+  margin-bottom: 8px;
+}
+
+.popup-district svg {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.popup-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--golden);
+  margin-bottom: 8px;
+}
+
+.popup-rating svg {
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(245, 166, 35, 0.4));
+}
+
+.popup-rating .rating-value {
+  color: var(--charcoal);
+}
+
+.popup-rating .review-count {
+  color: var(--sage);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.popup-hours {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--sage);
+  margin-bottom: 0;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+.popup-hours svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* Popup Actions - Beautiful buttons */
+.popup-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 0;
+}
+
+.popup-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.popup-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.popup-button svg {
+  transition: transform 0.25s ease;
+}
+
+/* Google Maps button - jade green gradient */
+.popup-maps-btn {
+  background: linear-gradient(135deg, var(--jade) 0%, #1e4030 100%);
+  color: white;
+  box-shadow:
+    0 4px 12px rgba(45, 90, 69, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.popup-maps-btn:hover {
+  background: linear-gradient(135deg, #3a6b55 0%, var(--jade) 100%);
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 20px rgba(45, 90, 69, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.popup-maps-btn:active {
+  transform: translateY(0);
+}
+
+/* View Details button - vibrant animated gradient */
+.popup-details-btn {
+  background: linear-gradient(135deg, var(--golden) 0%, var(--vermillion) 50%, var(--terracotta) 100%);
+  background-size: 200% 200%;
+  color: white;
+  box-shadow:
+    0 4px 12px rgba(232, 74, 39, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.popup-details-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 24px rgba(232, 74, 39, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.popup-details-btn:hover svg {
+  transform: translateX(3px);
+}
+
+.popup-details-btn:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   MAPBOX CONTROLS
+   ============================================ */
+
+/* Navigation control container positioning - at edge for more map space */
+.mapboxgl-ctrl-bottom-right {
+  right: 4px;
+  bottom: 4px;
+}
+
+/* Control group styling - smaller, compact buttons */
+.mapboxgl-ctrl-group {
+  border-radius: 6px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+  overflow: hidden;
+  background: var(--paper) !important;
+}
+
+/* Smaller navigation buttons */
+.mapboxgl-ctrl-group button {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.mapboxgl-ctrl-group button:hover {
+  background-color: var(--cream) !important;
+}
+
+/* Scale down the icons inside buttons */
+.mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+  background-size: 16px 16px !important;
+}
+
+/* Fullscreen control - make it slightly smaller and position above nav controls */
+.mapboxgl-ctrl-fullscreen {
+  margin-bottom: 6px !important;
+}
+
+.mapboxgl-ctrl-fullscreen button {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+/* Navigation control (zoom in/out + compass) */
+.mapboxgl-ctrl-nav {
+  margin-bottom: 6px !important;
+}
+
+/* Ensure controls don't overlap with filter panel on left side */
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-top-left {
+  left: 10px;
+  transition: left 0.3s ease;
+}
+
+/* When filter panel is open, shift left-side controls */
+.map-filter-panel.open ~ .mapboxgl-ctrl-bottom-left,
+.map-filter-panel.open ~ .mapboxgl-ctrl-top-left {
+  left: 300px;
+}
+
+/* Stacking order for bottom-right controls to prevent overlap */
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl {
+  margin-bottom: 6px;
+}
+
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl:last-child {
+  margin-bottom: 0;
+}
+
+/* Reset View Button - custom Mapbox control */
+.mapboxgl-ctrl-reset {
+  width: 28px !important;
+  height: 28px !important;
+  background: var(--paper) !important;
+  border: none !important;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.mapboxgl-ctrl-reset:hover {
+  background: var(--cream) !important;
+}
+
+.mapboxgl-ctrl-reset svg {
+  stroke: var(--charcoal);
+}
+
+/* Geolocation Button - Mobile Only */
+.mapboxgl-ctrl-geolocate-mobile {
+  display: none; /* Hidden on desktop by default */
+}
+
+.mapboxgl-ctrl-geolocate-btn {
+  width: 28px !important;
+  height: 28px !important;
+  background: var(--paper) !important;
+  border: none !important;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.mapboxgl-ctrl-geolocate-btn:hover {
+  background: var(--cream) !important;
+}
+
+.mapboxgl-ctrl-geolocate-btn svg {
+  stroke: var(--charcoal);
+  transition: stroke 0.15s ease;
+}
+
+.mapboxgl-ctrl-geolocate-btn.loading {
+  background: var(--cream) !important;
+}
+
+.mapboxgl-ctrl-geolocate-btn.loading svg {
+  stroke: var(--vermillion);
+  animation: pulse-geolocate 1s ease-in-out infinite;
+}
+
+@keyframes pulse-geolocate {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* User Location Marker */
+.user-location-marker {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.user-location-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: var(--vermillion);
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.user-location-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(232, 74, 39, 0.25);
+  border-radius: 50%;
+  animation: user-pulse 2s ease-out infinite;
+  z-index: 1;
+}
+
+@keyframes user-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Active state for controls */
+.mapboxgl-ctrl-group button:active {
+  background-color: var(--sage) !important;
+}
+
+/* Focus state for accessibility */
+.mapboxgl-ctrl-group button:focus {
+  outline: 2px solid var(--vermillion);
+  outline-offset: 1px;
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+@media (max-width: 1023px) {
+  .map-container {
+    height: 450px;
+  }
+}
+
+@media (max-width: 767px) {
+  .map-section {
+    padding: 2rem 0.5rem;
+  }
+
+  .map-container {
+    height: 380px;
+    border-radius: 12px;
+  }
+
+  /* Mobile Controls Bar */
+  .map-controls-bar {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .map-controls-row {
+    gap: 8px;
+  }
+
+  /* Mobile Open Now Button */
+  .open-now-toggle {
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 10px;
+    gap: 8px;
+  }
+
+  .open-now-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .open-now-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Mobile Top 3 Places Button */
+  .top-places-toggle {
+    padding: 8px 14px;
+    font-size: 11px;
+    border-radius: 10px;
+    gap: 6px;
+  }
+
+  .top-places-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .top-places-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Mobile Filter */
+  .map-filter-toggle {
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 10px;
+  }
+
+  /* Mobile Distance Slider - compact and responsive */
+  .distance-slider-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 8px 12px;
+    gap: 6px;
+    border-radius: 8px;
+    align-items: center;
+  }
+
+  .distance-slider-container.visible {
+    display: flex;
+  }
+
+  .distance-slider-label {
+    font-size: 11px;
+    justify-content: flex-start;
+    gap: 6px;
+    flex: 0 0 auto;
+  }
+
+  .distance-slider-label #distance-value {
+    min-width: 55px;
+  }
+
+  .distance-slider {
+    flex: 1;
+    min-width: 120px;
+    height: 6px;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    appearance: none;
+    touch-action: pan-x;
+  }
+
+  .distance-slider::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    border-width: 2px;
+    -webkit-appearance: none;
+    appearance: none;
+    touch-action: pan-x;
+  }
+
+  .distance-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-width: 2px;
+  }
+
+  .distance-ticks {
+    width: 100%;
+    justify-content: space-between;
+    font-size: 9px;
+    gap: 0;
+    padding: 2px 4px 0;
+    opacity: 0.7;
+  }
+
+  .distance-ticks span {
+    flex: 1;
+  }
+
+  .map-filter-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    margin: 0;
+    border-radius: 20px 20px 0 0;
+    max-height: 70vh;
+    transform: translateY(100%);
+    transform-origin: bottom center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .map-filter-panel.open {
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .map-filter-panel::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: var(--sage);
+    border-radius: 2px;
+    margin: 12px auto 8px;
+  }
+
+  .filter-header {
+    padding: 8px 16px 14px;
+  }
+
+  .filter-close-btn {
+    display: none;
+  }
+
+  .filter-options-list {
+    max-height: calc(70vh - 180px);
+  }
+
+  /* Mobile popup adjustments */
+  .mapboxgl-popup-content {
+    max-width: calc(100vw - 40px) !important;
+    border-radius: 20px !important;
+  }
+
+  .map-popup {
+    min-width: 260px;
+  }
+
+  .popup-content {
+    padding: 20px 16px 16px;
+  }
+
+  .popup-category-bar::after {
+    width: 40px;
+    height: 20px;
+    bottom: -10px;
+  }
+
+  .popup-name {
+    font-size: 18px;
+  }
+
+  .popup-info {
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+
+  .popup-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .popup-button {
+    padding: 14px 16px;
+    border-radius: 12px;
+  }
+
+  /* Mobile map controls - slightly larger for touch targets */
+  .mapboxgl-ctrl-group button {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .mapboxgl-ctrl-fullscreen button {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  /* Adjust reset button position for mobile */
+  .mapboxgl-ctrl-reset {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .mapboxgl-ctrl-reset svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* Show geolocation button on mobile */
+  .mapboxgl-ctrl-geolocate-mobile {
+    display: block !important;
+  }
+
+  .mapboxgl-ctrl-geolocate-btn {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .mapboxgl-ctrl-geolocate-btn svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* Ensure controls stay visible and don't overlap with bottom sheet - at edge */
+  .mapboxgl-ctrl-bottom-right {
+    bottom: 4px;
+    right: 4px;
+  }
+}
+
+/* Bottom sheet overlay */
+.map-filter-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.map-filter-overlay.visible {
+  display: block;
+  opacity: 1;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.map-section {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Restaurant modal styles moved to css/restaurant-popup.css */
